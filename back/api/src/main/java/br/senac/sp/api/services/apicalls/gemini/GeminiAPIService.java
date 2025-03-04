@@ -5,6 +5,7 @@ import br.senac.sp.api.domain.analysis.TextAnalysisDTO;
 import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AssistantPrompt;
 import br.senac.sp.api.services.apicalls.IAModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -19,10 +20,10 @@ import java.util.Date;
 public class GeminiAPIService extends APIConnector {
 
     public GeminiAPIService() {
-        super(System.getenv("GEMINI_KEY"), "https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key=" + System.getenv("GEMINI_KEY"),"Gemini");
+        super(System.getenv("GEMINI_KEY"), "https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key=" + System.getenv("GEMINI_KEY"), "Gemini");
     }
 
-    public String callGeminiAPI (String json, IAModel model) throws IOException, InterruptedException {
+    public String callGeminiAPI(String json, IAModel model) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(this.url.replace("{MODEL}", model.getModel())))
@@ -42,8 +43,28 @@ public class GeminiAPIService extends APIConnector {
     @Override
     public AnalysisDTO getAnalysisOfText(String text, IAModel model) throws IOException, InterruptedException {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = "{\n" +
+        String json = getPostJsonModelGemini(text);
+
+        String jsonResponseString = callGeminiAPI(json, model);
+        JsonNode rootNode = objectMapper.readTree(jsonResponseString);
+        String principalMessage = rootNode.path("candidates").get(0).path("content").path("parts").get(0).path("text").asText();
+        String modelResponse = rootNode.path("modelVersion").asText();
+        int totalTokens = rootNode.path("usageMetadata").path("totalTokenCount").asInt();
+
+        try {
+
+            TextAnalysisDTO textAnalysisDTO = objectMapper.readValue(principalMessage, TextAnalysisDTO.class);
+            return new AnalysisDTO(text, totalTokens, modelResponse, this.nameAI, new Date(), textAnalysisDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    private String getPostJsonModelGemini(String text) {
+
+        return "{\n" +
                 "  \"systemInstruction\": {\n" +
                 "    \"parts\": [\n" +
                 "      {\"text\": " + AssistantPrompt.BASIC_PROMPT_NO_JSON_INDICATES.getPrompt() + " }\n" +
@@ -63,21 +84,5 @@ public class GeminiAPIService extends APIConnector {
                 "    \"frequency_penalty\": 0.0\n" +
                 "  }\n" +
                 "}";
-
-        String jsonString = callGeminiAPI(json, model);
-        JsonNode rootNode = objectMapper.readTree(jsonString);
-        String principalMessage = rootNode.path("candidates").get(0).path("content").path("parts").get(0).path("text").asText();
-        String modelResponse = rootNode.path("modelVersion").asText();
-        int totalTokens = rootNode.path("usageMetadata").path("totalTokenCount").asInt();
-
-        try {
-
-            TextAnalysisDTO textAnalysisDTO = objectMapper.readValue(principalMessage, TextAnalysisDTO.class);
-            return new AnalysisDTO(text, totalTokens, modelResponse, this.nameAI, new Date(), textAnalysisDTO);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
     }
 }

@@ -5,6 +5,7 @@ import br.senac.sp.api.domain.analysis.TextAnalysisDTO;
 import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AssistantPrompt;
 import br.senac.sp.api.services.apicalls.IAModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
@@ -25,29 +26,18 @@ public class OpenAiAPIService extends APIConnector {
 
     @Override
     public AnalysisDTO getAnalysisOfText(String text, IAModel model) throws IOException, InterruptedException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        final String json = "{\n" +
-                "  \"model\": " + model.getModel() + ",\n" +
-                "  \"messages\": [\n" +
-                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT.getPrompt() + " },\n" +
-                "    {\"role\": \"user\", \"content\": " + objectMapper.writeValueAsString(text) + "}\n" +
-                "  ],\n" +
-                "  \"temperature\": 0,\n" +
-                "  \"max_tokens\": 2000,\n" +
-                "  \"n\": 1,\n" +
-                "  \"presence_penalty\": 0.0,\n" +
-                "  \"frequency_penalty\": 0.0\n" +
-                "}";
 
-        String jsonString = callOpenAiAPI(json);
-        JsonNode rootNode = objectMapper.readTree(jsonString);
-        JsonNode messageNode = rootNode.path("choices").get(0).path("message").path("content");
+        final String json = getPostJsonModelOpenAI(text, model);
+
+        String jsonResponseString = callOpenAiAPI(json);
+        JsonNode rootNode = objectMapper.readTree(jsonResponseString);
+        String principalMessage = rootNode.path("choices").get(0).path("message").path("content").asText();
         String modelResponse = rootNode.path("model").asText();
         int totalTokens = rootNode.path("usage").path("total_tokens").asInt();
 
         try {
 
-            TextAnalysisDTO textAnalysisDTO = objectMapper.readValue(messageNode.asText(), TextAnalysisDTO.class);
+            TextAnalysisDTO textAnalysisDTO = objectMapper.readValue(principalMessage, TextAnalysisDTO.class);
             return new AnalysisDTO(text, totalTokens, modelResponse, this.nameAI, new Date(), textAnalysisDTO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,6 +61,22 @@ public class OpenAiAPIService extends APIConnector {
         } else {
             throw new IOException("Error calling OpenAI API: " + response.statusCode() + " " + response.body());
         }
+    }
+
+    private String getPostJsonModelOpenAI(String text, IAModel model) throws JsonProcessingException {
+
+        return "{\n" +
+                "  \"model\": " + model.getModel() + ",\n" +
+                "  \"messages\": [\n" +
+                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT.getPrompt() + " },\n" +
+                "    {\"role\": \"user\", \"content\": " + objectMapper.writeValueAsString(text) + "}\n" +
+                "  ],\n" +
+                "  \"temperature\": 0,\n" +
+                "  \"max_tokens\": 2000,\n" +
+                "  \"n\": 1,\n" +
+                "  \"presence_penalty\": 0.0,\n" +
+                "  \"frequency_penalty\": 0.0\n" +
+                "}";
     }
 
 }

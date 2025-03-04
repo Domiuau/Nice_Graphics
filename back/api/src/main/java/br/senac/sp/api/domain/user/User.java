@@ -40,10 +40,20 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role == UserRole.ADMIN ?
-                List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER")) :
-                List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return switch (role) {
+            case ADMIN -> List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER"),
+                    new SimpleGrantedAuthority("ROLE_PREMIUM_USER")
+            );
+            case PREMIUM_USER -> List.of(
+                    new SimpleGrantedAuthority("ROLE_PREMIUM_USER"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+            default -> List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        };
     }
+
 
     @Override
     public String getPassword() {

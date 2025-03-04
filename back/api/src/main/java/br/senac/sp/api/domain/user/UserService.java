@@ -4,7 +4,7 @@ import br.senac.sp.api.domain.analysis.AnalisysRepository;
 
 import br.senac.sp.api.domain.analysis.Analysis;
 import br.senac.sp.api.domain.analysis.AnalysisDTO;
-import br.senac.sp.api.domain.analysis.AnalysisReturnDTO;
+import br.senac.sp.api.domain.user.dto.LoggedUserDTO;
 import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
 import br.senac.sp.api.infra.security.services.TokenService;
@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -44,7 +45,9 @@ public class UserService {
         User user = new User(cadastro.login(), encryptedPassword, cadastro.email());
         userRepository.save(user);
 
-        return ResponseEntity.ok("usuario " + user.getUsername() + " foi registrado");
+        var token = tokenService.generateToken(user);
+
+        return ResponseEntity.ok(new LoggedUserDTO(user, token));
 
     }
 
@@ -52,10 +55,18 @@ public class UserService {
 
         var userNamePassword = new UsernamePasswordAuthenticationToken(login.login(), login.senha());
         var auth = authenticationManager.authenticate(userNamePassword);
-
         var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new LoggedUserDTO((User) auth.getPrincipal(), token));
+    }
+
+    public ResponseEntity<?> analyzeText(String text, AvailableIA availableIA, IAModel model) throws Exception {
+
+        AnalysisDTO analysisDTO = availableIA.getApiConnector().getAnalysisOfText(text, model);
+        Analysis analysis = new Analysis(analysisDTO);
+        analisysRepository.save(analysis);
+
+        return ResponseEntity.ok(analysisDTO);
     }
 
     public ResponseEntity<?> testSaveContext(String text, AvailableIA availableIA, IAModel model) throws Exception {

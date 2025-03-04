@@ -10,11 +10,13 @@ public abstract class APIConnector {
     protected final String apiKey;
     protected final String url;
     protected final String nameAI;
+    protected final ObjectMapper objectMapper;
 
     protected APIConnector(String apiKey, String url, String nameAI) {
         this.apiKey = apiKey;
         this.url = url;
         this.nameAI = nameAI;
+        objectMapper = new ObjectMapper();
     }
 
     public abstract AnalysisDTO getAnalysisOfText(String text, IAModel model) throws IOException, InterruptedException;

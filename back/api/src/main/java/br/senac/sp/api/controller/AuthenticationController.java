@@ -38,11 +38,12 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody @Valid LoginUserDTO login) {
-        Long user = new User("asd", "asd", "asd").getId();
 
         return userService.login(login);
 
     }
+
+
 
     @GetMapping("/testandoAPI")
     public ResponseEntity<?> testandoAPI() throws Exception {
