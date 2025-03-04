@@ -1,5 +1,6 @@
 @import "layout/_header.css";
 @import "layout/_main.css";
+@import "layout/_footer.css";
 @import "base/_variaveis.css";
 
 * {
