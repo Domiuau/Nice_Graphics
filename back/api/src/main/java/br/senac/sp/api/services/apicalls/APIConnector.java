@@ -1,22 +1,20 @@
 package br.senac.sp.api.services.apicalls;
 
 import br.senac.sp.api.domain.analysis.AnalysisDTO;
-import br.senac.sp.api.services.apicalls.openai.IAModel;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 
 public abstract class APIConnector {
 
     protected final String apiKey;
     protected final String url;
+    protected final String nameAI;
 
-    protected APIConnector(String apiKey, String url) {
+    protected APIConnector(String apiKey, String url, String nameAI) {
         this.apiKey = apiKey;
         this.url = url;
+        this.nameAI = nameAI;
     }
 
     public abstract AnalysisDTO getAnalysisOfText(String text, IAModel model) throws IOException, InterruptedException;

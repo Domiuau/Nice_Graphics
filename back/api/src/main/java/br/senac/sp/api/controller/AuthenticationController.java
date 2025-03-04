@@ -7,6 +7,9 @@ import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
 import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AvailableIA;
+import br.senac.sp.api.services.apicalls.IAModel;
+import br.senac.sp.api.services.apicalls.gemini.GeminiAPIService;
+import br.senac.sp.api.services.apicalls.gemini.GeminiModel;
 import br.senac.sp.api.services.apicalls.openai.OpenAiAPIService;
 import br.senac.sp.api.services.apicalls.openai.OpenAiGPTModel;
 import jakarta.validation.Valid;
@@ -43,10 +46,17 @@ public class AuthenticationController {
 
     @GetMapping("/testandoAPI")
     public ResponseEntity<?> testandoAPI() throws Exception {
-        APIConnector apiService = new OpenAiAPIService();
 
-        return userService.testSaveContext("Na última competição esportiva realizada neste fim de semana, apenas a atleta Elina conseguiu pontuar, somando 10 pontos no total. Enquanto Gabriel, João, Maria e Pedro não conseguiram marcar pontos, Elina garantiu sua colocação na disputa. Os prêmios da competição foram distribuídos da seguinte forma: R$ 100 para o primeiro colocado, R$ 50 para o segundo e R$ 10 para o terceiro. Apesar do esforço dos demais competidores, apenas Elina chegou à zona de pontuação.",
-                AvailableIA.OPENAI, OpenAiGPTModel.GPT_3_5_TURBO);
+        return userService.testSaveContext("Nos últimos anos, o mercado de tecnologia apresentou um crescimento significativo, com um aumento de 27,3% no número de startups ativas desde 2021. De acordo com pesquisas recentes, 68% dos consumidores preferem realizar compras online, enquanto apenas 32% ainda optam por lojas físicas.\n" +
+                        "\n" +
+                        "No setor de educação, a adoção de plataformas digitais cresceu 45% no último semestre, refletindo uma mudança na forma como os alunos acessam conteúdo. Além disso, 78% dos estudantes afirmam que o aprendizado online é mais flexível e eficiente do que os métodos tradicionais.\n" +
+                        "\n" +
+                        "Na área de saúde, estudos indicam que o uso de inteligência artificial para diagnósticos aumentou 54,2% desde 2020. Entre os médicos entrevistados, 82% acreditam que essas tecnologias podem melhorar a precisão das avaliações clínicas.\n" +
+                        "\n" +
+                        "Em contrapartida, a preocupação com a segurança digital cresceu 37% entre os usuários de internet, com 59% relatando já terem enfrentado tentativas de golpe ou vazamento de dados.\n" +
+                        "\n" +
+                        "Com tantas mudanças no cenário atual, especialistas preveem que o avanço da tecnologia continuará impactando diversos setores, levando a um aumento médio de 22% na automação de processos até 2030.",
+                AvailableIA.GEMINI, GeminiModel.GEMINI_2_0_FLASH);
     }
 
 

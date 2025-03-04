@@ -3,6 +3,8 @@ create table analysis (
     analyzed_text VARCHAR(3000) not null,
     model_who_responded VARCHAR(30) not null,
     cost_in_tokens INT not null,
+    creation_date TIMESTAMP,
+    analyzed_by VARCHAR(20) not null,
     summary VARCHAR(500) not null
 );
 
@@ -15,7 +17,7 @@ create table context (
 
 create table data (
     id VARCHAR(36) PRIMARY KEY,
-    field VARCHAR(30) not null,
+    field VARCHAR(80) not null,
     value DOUBLE not null,
     context_id VARCHAR(36) not null,
     FOREIGN KEY (context_id) REFERENCES context(id)

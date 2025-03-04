@@ -1,4 +1,6 @@
 package br.senac.sp.api.domain.analysis;
 
-public record AnalysisDTO(String analyzedText, int costInTokens, String modelWhoResponded, TextAnalysisDTO textAnalysis) {
+import java.util.Date;
+
+public record AnalysisDTO(String analyzedText, int costInTokens, String modelWhoResponded, String analyzedBy, Date creationDate, TextAnalysisDTO textAnalysis) {
 }

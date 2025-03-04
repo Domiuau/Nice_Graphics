@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity(name = "analysis")
@@ -27,6 +28,8 @@ public class Analysis {
     private String analyzedText;
     private int costInTokens;
     private String modelWhoResponded;
+    private Date creation_date;
+    private String analyzedBy;
 
     public Analysis(AnalysisDTO analysisDTO) {
         this.summary = analysisDTO.textAnalysis().summary();
@@ -34,6 +37,8 @@ public class Analysis {
         this.analyzedText = analysisDTO.analyzedText();
         this.costInTokens = analysisDTO.costInTokens();
         this.modelWhoResponded = analysisDTO.modelWhoResponded();
+        this.creation_date = analysisDTO.creationDate();
+        this.analyzedBy = analysisDTO.analyzedBy();
 
     }
 }

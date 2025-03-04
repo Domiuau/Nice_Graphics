@@ -4,26 +4,23 @@ import br.senac.sp.api.domain.analysis.AnalisysRepository;
 
 import br.senac.sp.api.domain.analysis.Analysis;
 import br.senac.sp.api.domain.analysis.AnalysisDTO;
-import br.senac.sp.api.domain.context.Context;
-import br.senac.sp.api.domain.context.ContextDTO;
-import br.senac.sp.api.domain.data.Data;
-import br.senac.sp.api.domain.data.DataDTO;
+import br.senac.sp.api.domain.analysis.AnalysisReturnDTO;
 import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
 import br.senac.sp.api.infra.security.services.TokenService;
-import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AvailableIA;
-import br.senac.sp.api.services.apicalls.openai.IAModel;
+import br.senac.sp.api.services.apicalls.IAModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Service
 public class UserService {
@@ -67,7 +64,7 @@ public class UserService {
         Analysis analysis = new Analysis(analysisDTO);
         analisysRepository.save(analysis);
 
-       return ResponseEntity.ok(analysisDTO);
+        return ResponseEntity.ok(analysisDTO);
 
 
     }
