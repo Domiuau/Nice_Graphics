@@ -4,23 +4,25 @@ import br.senac.sp.api.domain.analysis.AnalisysRepository;
 
 import br.senac.sp.api.domain.analysis.Analysis;
 import br.senac.sp.api.domain.analysis.AnalysisDTO;
+import br.senac.sp.api.domain.analysis.AnalysisReturnDTO;
+import br.senac.sp.api.domain.context.ContextDTO;
+import br.senac.sp.api.domain.data.Data;
+import br.senac.sp.api.domain.data.DataDTO;
 import br.senac.sp.api.domain.user.dto.LoggedUserDTO;
 import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
+import br.senac.sp.api.domain.user.dto.UserAnalyzesDTO;
 import br.senac.sp.api.infra.security.services.TokenService;
-import br.senac.sp.api.services.apicalls.AvailableIA;
-import br.senac.sp.api.services.apicalls.IAModel;
+import br.senac.sp.api.services.apicalls.AvailableAI;
+import br.senac.sp.api.services.apicalls.AIModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -60,22 +62,38 @@ public class UserService {
         return ResponseEntity.ok(new LoggedUserDTO((User) auth.getPrincipal(), token));
     }
 
-    public ResponseEntity<?> analyzeText(String text, AvailableIA availableIA, IAModel model) throws Exception {
+    @Transactional
+    public ResponseEntity<?> analyzeText(String text, AIModel model, String token) throws Exception {
 
-        AnalysisDTO analysisDTO = availableIA.getApiConnector().getAnalysisOfText(text, model);
-        Analysis analysis = new Analysis(analysisDTO);
-        analisysRepository.save(analysis);
+        AnalysisDTO analysisDTO = model.getAI().getApiConnector().getAnalysisOfText(text, model);
+
+        if (token != null) {
+            String username = tokenService.validateToken(token.replace("Bearer ", ""));
+            if (username == null) return ResponseEntity.badRequest().body("Token inválido");
+
+            User user = (User) userRepository.findByUsername(username);
+            Analysis analysis = new Analysis(analysisDTO, user);
+            user.getAnalyses().add(analysis);
+        }
 
         return ResponseEntity.ok(analysisDTO);
     }
 
-    public ResponseEntity<?> testSaveContext(String text, AvailableIA availableIA, IAModel model) throws Exception {
+    public ResponseEntity<?> getGenerations(String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+        return ResponseEntity.ok(new UserAnalyzesDTO(user.getAnalyses().stream().map(analysis ->
+                new AnalysisReturnDTO(analysis.getAnalyzedText(), analysis.getCostInTokens(), analysis.getModelWhoResponded(), analysis.getAnalyzedBy(),
+                        analysis.getCreation_date(), analysis.getContexts().stream().map(context ->
+                        new ContextDTO(context.getDescription(), context.getData().stream().map(data ->
+                                new DataDTO(data.getField(), data.getValue())).toList())).toList())).toList()));
+    }
 
-        AnalysisDTO analysisDTO = availableIA.getApiConnector().getAnalysisOfText(text, model);
-        Analysis analysis = new Analysis(analysisDTO);
-        analisysRepository.save(analysis);
+    public ResponseEntity<?> testSaveContext(String text, AvailableAI availableAI, AIModel model) throws Exception {
 
-        return ResponseEntity.ok(analysisDTO);
+
+
+        return ResponseEntity.ok("nada em teste no momento");
 
 
     }

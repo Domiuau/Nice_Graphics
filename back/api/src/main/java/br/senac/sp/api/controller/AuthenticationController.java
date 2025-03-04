@@ -1,24 +1,15 @@
 package br.senac.sp.api.controller;
 
-import br.senac.sp.api.domain.analysis.AnalysisDTO;
-import br.senac.sp.api.domain.user.User;
 import br.senac.sp.api.domain.user.UserService;
 import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
-import br.senac.sp.api.services.apicalls.APIConnector;
-import br.senac.sp.api.services.apicalls.AvailableIA;
-import br.senac.sp.api.services.apicalls.IAModel;
-import br.senac.sp.api.services.apicalls.gemini.GeminiAPIService;
+import br.senac.sp.api.services.apicalls.AvailableAI;
 import br.senac.sp.api.services.apicalls.gemini.GeminiModel;
-import br.senac.sp.api.services.apicalls.openai.OpenAiAPIService;
-import br.senac.sp.api.services.apicalls.openai.OpenAiGPTModel;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/auth")
@@ -57,7 +48,7 @@ public class AuthenticationController {
                         "Em contrapartida, a preocupação com a segurança digital cresceu 37% entre os usuários de internet, com 59% relatando já terem enfrentado tentativas de golpe ou vazamento de dados.\n" +
                         "\n" +
                         "Com tantas mudanças no cenário atual, especialistas preveem que o avanço da tecnologia continuará impactando diversos setores, levando a um aumento médio de 22% na automação de processos até 2030.",
-                AvailableIA.GEMINI, GeminiModel.GEMINI_2_0_FLASH);
+                AvailableAI.GEMINI, GeminiModel.GEMINI_2_0_FLASH);
     }
 
 

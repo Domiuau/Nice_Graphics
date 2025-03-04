@@ -19,7 +19,7 @@ public abstract class APIConnector {
         objectMapper = new ObjectMapper();
     }
 
-    public abstract AnalysisDTO getAnalysisOfText(String text, IAModel model) throws IOException, InterruptedException;
+    public abstract AnalysisDTO getAnalysisOfText(String text, AIModel model) throws IOException, InterruptedException;
 
 
 

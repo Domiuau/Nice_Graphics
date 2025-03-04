@@ -1,11 +1,13 @@
 package br.senac.sp.api.domain.user;
 
+import br.senac.sp.api.domain.analysis.Analysis;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +29,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private boolean enabled;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Analysis> analyses;
 
 
     public User(String login, String senha, String email) {
@@ -35,6 +39,7 @@ public class User implements UserDetails {
         this.email = email;
         this.role = UserRole.USER;
         this.enabled = true;
+        this.analyses = new ArrayList<>();
 
     }
 

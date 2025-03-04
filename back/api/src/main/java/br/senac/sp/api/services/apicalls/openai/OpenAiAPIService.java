@@ -4,10 +4,9 @@ import br.senac.sp.api.domain.analysis.AnalysisDTO;
 import br.senac.sp.api.domain.analysis.TextAnalysisDTO;
 import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AssistantPrompt;
-import br.senac.sp.api.services.apicalls.IAModel;
+import br.senac.sp.api.services.apicalls.AIModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class OpenAiAPIService extends APIConnector {
     }
 
     @Override
-    public AnalysisDTO getAnalysisOfText(String text, IAModel model) throws IOException, InterruptedException {
+    public AnalysisDTO getAnalysisOfText(String text, AIModel model) throws IOException, InterruptedException {
 
         final String json = getPostJsonModelOpenAI(text, model);
 
@@ -63,7 +62,7 @@ public class OpenAiAPIService extends APIConnector {
         }
     }
 
-    private String getPostJsonModelOpenAI(String text, IAModel model) throws JsonProcessingException {
+    private String getPostJsonModelOpenAI(String text, AIModel model) throws JsonProcessingException {
 
         return "{\n" +
                 "  \"model\": " + model.getModel() + ",\n" +

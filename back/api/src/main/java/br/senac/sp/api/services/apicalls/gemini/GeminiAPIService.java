@@ -4,17 +4,14 @@ import br.senac.sp.api.domain.analysis.AnalysisDTO;
 import br.senac.sp.api.domain.analysis.TextAnalysisDTO;
 import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AssistantPrompt;
-import br.senac.sp.api.services.apicalls.IAModel;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import br.senac.sp.api.services.apicalls.AIModel;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class GeminiAPIService extends APIConnector {
@@ -23,7 +20,7 @@ public class GeminiAPIService extends APIConnector {
         super(System.getenv("GEMINI_KEY"), "https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key=" + System.getenv("GEMINI_KEY"), "Gemini");
     }
 
-    public String callGeminiAPI(String json, IAModel model) throws IOException, InterruptedException {
+    public String callGeminiAPI(String json, AIModel model) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(this.url.replace("{MODEL}", model.getModel())))
@@ -41,7 +38,7 @@ public class GeminiAPIService extends APIConnector {
     }
 
     @Override
-    public AnalysisDTO getAnalysisOfText(String text, IAModel model) throws IOException, InterruptedException {
+    public AnalysisDTO getAnalysisOfText(String text, AIModel model) throws IOException, InterruptedException {
 
         String json = getPostJsonModelGemini(text);
 

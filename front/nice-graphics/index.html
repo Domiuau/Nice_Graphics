@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONTS - POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+
+    <title>Nice Graphics</title>
+</head>
+
+<body>
+
+    <header class="header" id="header">
+
+        <nav class="navbar-header">
+            <ul>
+                <li>
+                    <div>
+                        <ul class="navbar-header-lista">
+                            <li class="navbar-logotipo">
+                                <img src="./img/Logo Animada Preto.png" alt="" srcset="">
+                            </li>
+                            <li>
+                                <a href="#">Gerar gráficos</a>
+                            </li>
+                            <li>
+                                <a href="#">Como utilizar</a>
+                            </li>
+                            <li>
+                                <a href="#">Premium</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <ul class="navbar-header-buttons">
+                            <li>
+                                <button class="btn-entrar">Entrar</button>
+                            </li>
+                            <li>
+                                <button class="btn-cadastro">Cadastre-se</button>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main class="main" id="main">
+
+        <div class="mensagem-principal">
+            <img src="./img/Abstract.png" class="desenho-1" alt="desenho de figuras geométricas flutuantes">
+            <h1>Transforme seus textos informativos em <span>Gráficos</span></h1> 
+            <p>teste com a versão <span><a href="#">grátis.</a></span></p>
+            <img src="./img/Increase.png" class="desenho-2" alt="">
+            <img src="./img/Wavy Line.png" class="desenho-3" alt="">
+        </div>
+        
+        <div class="mensagem-secundaria">
+            <img src="./img/Squiggly Line.png" class="desenho-4" alt="">
+            <h2>Gráficos gerados por contexto* <span>e personalizados em apenas um clique</span></h2>
+            <p>*opção de filtro por contexto disponível no <span><a href="#">plano premium</a></span></p>
+        </div>
+
+        <section class="secao-exemplos">
+
+            <div class="secao-exemplos-titulo">
+                <h2>Exemplos</h2>
+            </div>
+
+            <div class="secao-exemplos-conteudo">
+                <div class="texto-exemplo">
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate alias aliquam, accusantium culpa voluptate optio at omnis amet dolorum. Asperiores dolore itaque, dicta omnis minima sed, similique vel doloribus esse quae rerum modi mollitia fugiat eligendi suscipit provident. Sed cumque sit provident expedita? Dolores veritatis aperiam molestias. Sapiente, consectetur ut tempore repellat iusto cum eaque velit natus, veniam, laboriosam eos?</p>
+                </div>
+    
+                <p class="sinal-igualdade">=</p>
+    
+                <div class="grafico-exemplo">
+                    <canvas id="meuGrafico">
+
+                    </canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="secao-cadastre-se">
+
+
+        </section>
+        
+
+    </main>
+
+    <footer class="footer" id="footer"></footer>
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+    <!-- JS SCRIPT -->
+    <script src="./js/script.js"></script>
+    <script src="./js/pages/tela-principal.js"></script>
+</body>
+
+</html>

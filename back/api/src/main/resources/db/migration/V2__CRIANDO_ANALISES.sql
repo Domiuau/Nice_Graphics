@@ -5,7 +5,9 @@ create table analysis (
     cost_in_tokens INT not null,
     creation_date TIMESTAMP,
     analyzed_by VARCHAR(20) not null,
-    summary VARCHAR(500) not null
+    summary VARCHAR(500) not null,
+    user_id BIGINT not null,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 create table context (

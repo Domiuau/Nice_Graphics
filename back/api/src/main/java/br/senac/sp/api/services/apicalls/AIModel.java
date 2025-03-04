@@ -1,5 +1,6 @@
 package br.senac.sp.api.services.apicalls;
 
-public interface IAModel {
+public interface AIModel {
     String getModel();
+    AvailableAI getAI();
 }

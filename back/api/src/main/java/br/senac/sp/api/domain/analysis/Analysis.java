@@ -2,6 +2,7 @@ package br.senac.sp.api.domain.analysis;
 
 import br.senac.sp.api.domain.context.Context;
 import br.senac.sp.api.domain.context.ContextDTO;
+import br.senac.sp.api.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +31,11 @@ public class Analysis {
     private String modelWhoResponded;
     private Date creation_date;
     private String analyzedBy;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Analysis(AnalysisDTO analysisDTO) {
+    public Analysis(AnalysisDTO analysisDTO, User user) {
         this.summary = analysisDTO.textAnalysis().summary();
         this.contexts = analysisDTO.textAnalysis().contexts().stream().map(context -> new Context(context.description(), context.data(), this)).toList();
         this.analyzedText = analysisDTO.analyzedText();
@@ -39,6 +43,7 @@ public class Analysis {
         this.modelWhoResponded = analysisDTO.modelWhoResponded();
         this.creation_date = analysisDTO.creationDate();
         this.analyzedBy = analysisDTO.analyzedBy();
+        this.user = user;
 
     }
 }

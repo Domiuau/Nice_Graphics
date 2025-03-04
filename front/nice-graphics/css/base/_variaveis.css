@@ -1,0 +1,24 @@
+:root {
+    
+    --bg-0: #FFFFFF;
+    --bg-1: #050835;
+    --bg-2: #3B63A8;
+    --bg-3: #3D94F5;
+    --bg-4: #F4BC33;
+    --bg-5: #FE728D;
+
+    --font-1: #2A2829;
+    --font-2: #FFFFFF;
+    --font-3: #050835;
+    --font-4: #3b63a8;
+
+    --font-tam-pequeno: 14px;
+    --font-tam-normal: 16px;
+    --font-tam-medio: 20px;
+    --font-tam-titulo: 25px;
+    --font-tam-grande: 40px;
+
+    --font-family-padrao: "Poppins", sans-serif;
+
+    --box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+}
