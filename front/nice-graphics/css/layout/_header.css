@@ -42,13 +42,13 @@
     color: var(--bg-2);
 }
 
-.navbar-logotipo {
+.navbar-logotipo a {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.navbar-logotipo img {
+.navbar-logotipo a img {
     object-fit: cover;
     width: 200px;
     height: auto;

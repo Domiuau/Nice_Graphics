@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONTS - POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <title>Nice Graphics - Gerar Gráfico</title>
+</head>
+
+<body>
+
+    <header class="header" id="header">
+
+        <nav class="navbar-header">
+            <ul>
+                <li>
+                    <div>
+                        <ul class="navbar-header-lista">
+                            <li class="navbar-logotipo">
+                                <a href="../index.html">
+                                    <img src="../img/Logo Animada Preto.png" alt="Logotipo Nice Graphics">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./gerar-grafico.html">Gerar gráficos</a>
+                            </li>
+                            <li>
+                                <a href="#">Como utilizar</a>
+                            </li>
+                            <li>
+                                <a href="#">Premium</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <ul class="navbar-header-buttons">
+                            <li>
+                                <button class="btn-entrar" onclick="window.location.href='./login.html'">Entrar</button>
+                            </li>
+                            <li>
+                                <button class="btn-cadastro" onclick="window.location.href='./login.html'">Cadastre-se</button>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main class="container-gerar-grafico" id="container-gerar-grafico">
+
+        <h1>Gere seu Gráfico!</h1>
+        
+        <div class="containeres-geracao-grafico">
+
+            <form class="container-texto" id="container-texto">
+
+                <h2>Insira o seu texto abaixo:</h2>
+    
+                <div class="caixa-texto">
+                    <label for="txtarea-texto-usuario" class="lbl-textarea">Insira aqui o seu texto informativo:</label>
+                    <textarea name="txtarea-texto-usuario" id="txtarea-texto-usuario"></textarea>
+                </div>
+    
+                <div class="btns-limpar-gerar">
+                    <button class="btn-limpar" id="btn-limpar">Limpar</button>
+                    <button class="btn-gerar" id="btn-gerar">Gerar</button>
+                </div>
+            </form>
+
+            <div class="container-graficos-gerados" id="container-graficos-gerados">
+                <h2>Escolha o tipo de gráfico:</h2>
+
+                <div class="opcoes-tipos-de-grafico">
+
+                    <div class="opcao-grafico" id="grafico-barra">
+                        <i class='bx bx-bar-chart-alt-2'></i>
+                        <p>Barra</p>
+                    </div>
+
+                    <div class="opcao-grafico" id="grafico-linha">
+                        <i class='bx bx-line-chart'></i>
+                        <p>Linha</p>
+                    </div>
+
+                    <div class="opcao-grafico" id="grafico-pizza">
+                        <i class='bx bx-pie-chart-alt-2'></i>
+                        <p>Pizza</p>
+                    </div>
+
+                    <div class="opcao-grafico" id="grafico-rosquinha">
+                        <i class='bx bx-doughnut-chart'></i>
+                        <p>Rosquinha</p>
+                    </div>
+
+                    <div class="opcao-grafico" id="grafico-radar">
+                        <i class='bx bx-radar'></i>
+                        <p>Radar</p>
+                    </div>
+
+                </div>
+
+                <div class="container-grafico-gerado">
+                    <p>GRÁFICO AQUI</p>
+
+                </div>
+
+                <div class="opcoes-download" id="opcoes-download">
+
+                    <div class="opcao-download" id="opcao-download-pdf">
+                        <i class='bx bxs-file-pdf'></i>
+                        <p>Download em PDF</p>
+                    </div>
+
+                    <div class="opcao-download" id="opcao-download-png">
+                        <i class='bx bxs-file-png' ></i>
+                        <p>Download em PNG</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto vitae suscipit sunt incidunt ex. Itaque accusamus modi aut eum quisquam alias illo doloribus? Earum impedit, fugit accusantium sequi doloremque soluta sed, voluptatibus sapiente adipisci maiores veritatis suscipit totam recusandae magnam error est enim autem minima harum! Dolorum adipisci voluptatibus libero explicabo at modi debitis ratione consequatur. Voluptatibus cupiditate praesentium maiores tempore. Deleniti numquam placeat illum aut maiores dolorem illo aliquam? Itaque iure cumque voluptate, repellat omnis quia laboriosam corrupti, illo tempora ducimus quis eligendi praesentium amet nisi necessitatibus, deserunt odio soluta libero. Corrupti placeat aliquam qui. Quasi, tempore, quia fuga mollitia non magnam necessitatibus architecto blanditiis minima laborum molestias. Necessitatibus, iusto distinctio doloremque, quam id vitae eveniet, repudiandae quos doloribus esse non autem eligendi est iste molestiae! Debitis necessitatibus ad voluptates in vel officiis sit dolor reprehenderit ipsum qui praesentium eius minus repellat illum voluptas deleniti delectus corporis, eveniet quidem repellendus deserunt ratione! At in quo nostrum quibusdam quos ab laboriosam maiores eum earum, unde harum, repudiandae inventore provident tempore excepturi sint nihil eveniet sapiente architecto perferendis quas deleniti? Doloremque quidem fugiat, deleniti pariatur nesciunt molestias aperiam, voluptatem corrupti at exercitationem vel dignissimos? Aliquid excepturi adipisci commodi provident laudantium facilis maxime deleniti ea saepe deserunt est minus iure quisquam ducimus, tempore sapiente soluta vero corporis dicta. Quae quis et consequuntur nam nihil dicta, vel facilis soluta quidem, velit molestias possimus aliquam omnis, error nesciunt similique a repudiandae quod! Explicabo quo corrupti quas pariatur rem. Perferendis eligendi fuga beatae molestias aliquam ducimus consectetur! Amet, in aperiam? Natus repellendus earum laboriosam delectus eos fuga inventore saepe eaque expedita blanditiis. Vitae iusto maxime numquam dolores tempore et omnis, saepe iste eveniet repellat. Blanditiis, error accusantium. In repudiandae facilis quisquam numquam debitis consectetur ipsam veniam mollitia adipisci possimus repellat blanditiis molestias cupiditate amet, voluptates laborum enim ad, quo officia. Vitae, dicta? At veniam eius quam cumque adipisci magni distinctio nostrum culpa inventore quaerat accusantium, exercitationem, aspernatur vero beatae doloribus corporis laudantium atque alias? Officia ipsam commodi quaerat, assumenda quia iste ea iusto fugit facere architecto enim dolor magnam similique animi quas odio iure fuga libero excepturi, necessitatibus eaque, nemo dicta natus! Ex nesciunt, ut eos laboriosam placeat sed porro numquam, exercitationem enim obcaecati quaerat libero harum quisquam ipsam nihil tempore. Doloribus animi aliquid repellat ex beatae ab error, placeat in laborum reiciendis mollitia ea ipsam quae distinctio nemo quasi accusantium facilis quibusdam recusandae. Labore, sunt quisquam? Quaerat quos alias illo dolor amet? Sed, veniam voluptatem? Laudantium, laborum unde aliquam consectetur fuga nihil eius cumque blanditiis beatae adipisci commodi ipsa quaerat odit voluptatibus odio illo ipsam ratione doloribus quia sunt quasi numquam! Et exercitationem sit nulla vitae, minima alias illo aliquam ratione, consequatur omnis corporis consectetur vero nisi ipsam autem possimus iste? Eum eaque aspernatur iusto sint obcaecati dolorum hic, illo consectetur illum quas accusantium atque ad facilis quia assumenda pariatur dolore? Fuga fugit est rerum nisi doloribus suscipit ab itaque repellendus ut laborum pariatur saepe officiis, nemo tempora! Consequuntur, aspernatur necessitatibus omnis iure dolorum debitis laboriosam quis eligendi assumenda et fuga rerum distinctio recusandae eos, ea natus officiis tempore architecto minus, corporis dolor doloremque atque sit rem! Minima quasi facilis numquam eligendi temporibus libero. Veritatis quibusdam atque aperiam, reprehenderit libero accusamus tempore tenetur sed, omnis, iure soluta aliquid ducimus nisi perferendis officia. Repellat odio recusandae, quasi consequatur ea perspiciatis voluptate! Rerum similique molestias saepe accusantium, dignissimos esse, aliquam voluptatibus odio nihil nobis doloremque veniam nesciunt blanditiis totam. Earum, sit adipisci magni culpa possimus dicta vero unde similique hic ex, asperiores laborum praesentium? Quia harum nobis doloremque. Minus necessitatibus rerum impedit consequatur cum porro, beatae dicta enim alias eaque nulla unde perspiciatis quam commodi quod libero? Est ea enim delectus ex! Vel ab quaerat itaque enim in vero voluptatum nulla odit tempore debitis ipsam ea, labore deserunt, tempora maiores nam nostrum fugit fugiat perspiciatis possimus quasi? Quod sed minima maxime, aliquid quae consectetur. Repudiandae, cupiditate aliquid dolor provident asperiores sequi cum placeat saepe sit, assumenda quisquam quibusdam nam tempore aut ad eaque deserunt totam expedita odit atque est quod exercitationem fugiat! Tempora nulla, eveniet, illum sed sunt adipisci voluptas quae est repellendus ab ea ipsa inventore ipsum veniam at! Inventore molestiae consequatur dicta odio doloremque consectetur ipsa excepturi cumque natus aperiam, minima, vitae sapiente corrupti itaque alias ut nostrum amet, saepe culpa aliquam explicabo. Neque dicta odio repellat aliquid? A reiciendis optio, ducimus possimus suscipit doloribus enim, esse nisi illo sunt quas nemo. Incidunt officia, ea dolorum in vitae tempora repellat, laudantium doloremque vero molestiae nisi aspernatur quisquam vel, officiis rem aperiam distinctio nostrum? Quaerat voluptas nam consequuntur iusto nulla tempora voluptatem vero obcaecati vel repellat neque nisi aliquid, quasi, ea cum illo rem. Dolore quos beatae incidunt atque reprehenderit. Sed expedita optio porro error eaque dignissimos impedit, sit similique doloribus placeat suscipit atque ipsa?</p> -->
+        </div>
+
+    </main>
+
+
+    <footer class="footer" id="footer">
+
+        <div class="logo-footer">
+            <img src="../img/Logo Animada.png" alt="">
+        </div>
+
+        <div class="rodape-links">
+            <div class="social-media">
+                <a href="#" title="Instagram">
+                    <i class='bx bxl-instagram'></i>
+                </a>
+                <a href="#" title="Facebook">
+                    <i class='bx bxl-facebook-circle'></i>
+                </a>
+                <a href="#" title="Youtube">
+                    <i class='bx bxl-youtube'></i>
+                </a>
+            </div>
+
+            <div class="termos-e-politica-privacidade-links">
+                <ul>
+                    <li>
+                        <a href="#">Termos de Uso</a>
+                    </li>
+                    <li>
+                        <a href="#">Política de Privacidade</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p>Copyright © 2025 Nice Graphics</p>
+            </div>
+        </div>
+
+        
+    </footer>
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+    <!-- JS SCRIPT -->
+    <script src="../js/script.js"></script>
+    <script src="../js/pages/tela-login.js"></script>
+</body>
+
+</html>
