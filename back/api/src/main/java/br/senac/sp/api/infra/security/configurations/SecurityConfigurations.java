@@ -31,9 +31,11 @@ public class SecurityConfigurations {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/user/analyze/gpt_4").hasRole("PREMIUM_USER")
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/deepseek_reasoner").hasRole("PREMIUM_USER")
                         .requestMatchers(HttpMethod.POST, "/user/analyze/gemini_2_0_flash").authenticated()
                         .requestMatchers(HttpMethod.POST, "/user/analyze/gemini_1_5_flash").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/analyze/gpt_3_5").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/deepseek_chat").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/cadastrar").permitAll()
                         .anyRequest().permitAll()
