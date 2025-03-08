@@ -1,7 +1,7 @@
 const ctx = document.getElementById('meuGrafico').getContext('2d');
 
 const meuGraficoRosquinha = new Chart(ctx, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
         labels: ["Eletrônicos", "Vestuário", "Alimentos", "Móveis", "Cosméticos"],
         datasets: [{
