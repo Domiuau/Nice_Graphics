@@ -16,6 +16,9 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../css/main.css">
 
+    <!-- ICONE NICE GRAPHICS -->
+    <link rel="shortcut icon" href="../img/logo-icon.png" type="image/x-icon">
+
     <title>Nice Graphics - Gerar Gráfico</title>
 </head>
 
@@ -52,7 +55,8 @@
                                 <button class="btn-entrar" onclick="window.location.href='./login.html'">Entrar</button>
                             </li>
                             <li>
-                                <button class="btn-cadastro" onclick="window.location.href='./login.html'">Cadastre-se</button>
+                                <button class="btn-cadastro"
+                                    onclick="window.location.href='./login.html'">Cadastre-se</button>
                             </li>
                         </ul>
                     </div>
@@ -65,74 +69,89 @@
     <main class="container-gerar-grafico" id="container-gerar-grafico">
 
         <h1>Gere seu Gráfico!</h1>
-        
+
         <div class="containeres-geracao-grafico">
 
-            <form class="container-texto" id="container-texto">
+            <div class="container-texto" id="container-texto">
 
                 <h2>Insira o seu texto abaixo:</h2>
-    
+
                 <div class="caixa-texto">
                     <label for="txtarea-texto-usuario" class="lbl-textarea">Insira aqui o seu texto informativo:</label>
                     <textarea name="txtarea-texto-usuario" id="txtarea-texto-usuario"></textarea>
                 </div>
-    
+
+                <div class="opcoes-ia">
+                    <label for="select-opcoes-ia">Selecione a IA de sua preferência para examinar o seu texto:</label>
+                    <select name="select-opcoes-ia" id="select-opcoes-ia">
+                        <option value="0" class="opcao-ia">ChatGPT 3.5</option>
+                        <option value="1" class="opcao-ia">ChatGPT 4.0</option>
+                        <option value="2" class="opcao-ia">Gemini</option>
+                        <option value="3" class="opcao-ia">DeepSeek</option>
+                    </select>
+                </div>
+
                 <div class="btns-limpar-gerar">
                     <button class="btn-limpar" id="btn-limpar">Limpar</button>
                     <button class="btn-gerar" id="btn-gerar">Gerar</button>
                 </div>
-            </form>
+            </div>
 
             <div class="container-graficos-gerados" id="container-graficos-gerados">
                 <h2>Escolha o tipo de gráfico:</h2>
 
-                <div class="opcoes-tipos-de-grafico">
+                <div class="container-grafico-acoes">
+                    <div class="opcoes-tipos-de-grafico">
 
-                    <div class="opcao-grafico" id="grafico-barra">
-                        <i class='bx bx-bar-chart-alt-2'></i>
-                        <p>Barra</p>
+                        <button class="opcao-grafico grafico-barra">
+                            <i class='bx bx-bar-chart-alt-2'></i>
+                            <p>Barra</p>
+                        </button>
+    
+                        <button class="opcao-grafico grafico-linha">
+                            <i class='bx bx-line-chart'></i>
+                            <p>Linha</p>
+                        </button>
+    
+                        <button class="opcao-grafico grafico-pizza">
+                            <i class='bx bx-pie-chart-alt-2'></i>
+                            <p>Pizza</p>
+                        </button>
+    
+                        <button class="opcao-grafico grafico-rosquinha">
+                            <i class='bx bx-doughnut-chart'></i>
+                            <p>Rosquinha</p>
+                        </button>
+    
+                        <button class="opcao-grafico grafico-radar">
+                            <i class='bx bx-radar'></i>
+                            <p>Radar</p>
+                        </button>
+    
                     </div>
-
-                    <div class="opcao-grafico" id="grafico-linha">
-                        <i class='bx bx-line-chart'></i>
-                        <p>Linha</p>
+    
+                    <div class="container-grafico-gerado">
+                        <canvas id="meuGrafico">
+    
+                        </canvas>
                     </div>
-
-                    <div class="opcao-grafico" id="grafico-pizza">
-                        <i class='bx bx-pie-chart-alt-2'></i>
-                        <p>Pizza</p>
+    
+                    <div class="opcoes-download" id="opcoes-download">
+    
+                        <button class="opcao-download opcao-download-pdf">
+                            <i class='bx bxs-file-pdf'></i>
+                            <p>Download em PDF</p>
+                        </button>
+    
+                        <button class="opcao-download opcao-download-png">
+                            <i class='bx bxs-file-png'></i>
+                            <p>Download em PNG</p>
+                        </button>
+    
                     </div>
-
-                    <div class="opcao-grafico" id="grafico-rosquinha">
-                        <i class='bx bx-doughnut-chart'></i>
-                        <p>Rosquinha</p>
-                    </div>
-
-                    <div class="opcao-grafico" id="grafico-radar">
-                        <i class='bx bx-radar'></i>
-                        <p>Radar</p>
-                    </div>
-
                 </div>
 
-                <div class="container-grafico-gerado">
-                    <p>GRÁFICO AQUI</p>
-
-                </div>
-
-                <div class="opcoes-download" id="opcoes-download">
-
-                    <div class="opcao-download" id="opcao-download-pdf">
-                        <i class='bx bxs-file-pdf'></i>
-                        <p>Download em PDF</p>
-                    </div>
-
-                    <div class="opcao-download" id="opcao-download-png">
-                        <i class='bx bxs-file-png' ></i>
-                        <p>Download em PNG</p>
-                    </div>
-
-                </div>
+                <div class="separador"></div>
 
             </div>
 
@@ -176,7 +195,7 @@
             </div>
         </div>
 
-        
+
     </footer>
 
     <!-- CHART.JS -->
@@ -185,7 +204,7 @@
 
     <!-- JS SCRIPT -->
     <script src="../js/script.js"></script>
-    <script src="../js/pages/tela-login.js"></script>
+    <script src="../js/pages/tela-principal.js"></script>
 </body>
 
 </html>
