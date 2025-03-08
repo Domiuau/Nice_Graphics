@@ -4,6 +4,7 @@ import br.senac.sp.api.domain.analysis.TextForAnalyzeDTO;
 import br.senac.sp.api.domain.user.UserService;
 import br.senac.sp.api.services.apicalls.AvailableAI;
 import br.senac.sp.api.services.apicalls.deepseek.DeepseekModel;
+import br.senac.sp.api.services.apicalls.dto.AiModelsDetailsReturnDTO;
 import br.senac.sp.api.services.apicalls.gemini.GeminiModel;
 import br.senac.sp.api.services.apicalls.openai.OpenAiGPTModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,11 @@ public class UserController {
     @GetMapping("/analyze/generations")
     public ResponseEntity<?> getGenerations(@RequestHeader(name = "Authorization") String token) {
         return userService.getGenerations(token);
+    }
+
+    @GetMapping("/models/details")
+    public ResponseEntity<?> getModelsDetails() {
+        return ResponseEntity.ok(new AiModelsDetailsReturnDTO());
     }
 
 
