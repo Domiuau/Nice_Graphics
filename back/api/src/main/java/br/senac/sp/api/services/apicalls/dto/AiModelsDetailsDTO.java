@@ -1,6 +1,5 @@
 package br.senac.sp.api.services.apicalls.dto;
 
-import br.senac.sp.api.services.apicalls.AiModelsDetails;
 
 import java.util.Arrays;
 

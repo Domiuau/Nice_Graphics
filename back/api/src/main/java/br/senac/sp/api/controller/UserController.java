@@ -18,6 +18,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    private AiModelsDetailsReturnDTO aiModelsDetailsReturnDTO = new AiModelsDetailsReturnDTO();
+
     @PostMapping("/analyze/gpt_3_5")
     public ResponseEntity<?> analyzeTextWithGpt3_5(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(required = false, name = "Authorization") String token) throws Exception {
         return userService.analyzeText(textForAnalyzeDTO.text(), OpenAiGPTModel.GPT_3_5_TURBO, token);
@@ -55,7 +57,7 @@ public class UserController {
 
     @GetMapping("/models/details")
     public ResponseEntity<?> getModelsDetails() {
-        return ResponseEntity.ok(new AiModelsDetailsReturnDTO());
+        return ResponseEntity.ok(aiModelsDetailsReturnDTO);
     }
 
 

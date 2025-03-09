@@ -6,24 +6,25 @@ import br.senac.sp.api.domain.analysis.Analysis;
 import br.senac.sp.api.domain.analysis.AnalysisDTO;
 import br.senac.sp.api.domain.analysis.AnalysisReturnDTO;
 import br.senac.sp.api.domain.context.ContextDTO;
-import br.senac.sp.api.domain.data.Data;
 import br.senac.sp.api.domain.data.DataDTO;
 import br.senac.sp.api.domain.user.dto.LoggedUserDTO;
 import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
 import br.senac.sp.api.domain.user.dto.UserAnalyzesDTO;
+import br.senac.sp.api.infra.errors.exceptions.CharacterLimitReachedException;
+import br.senac.sp.api.infra.errors.exceptions.InvalidLoginException;
 import br.senac.sp.api.infra.security.services.TokenService;
 import br.senac.sp.api.services.apicalls.AvailableAI;
 import br.senac.sp.api.services.apicalls.AIModel;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -55,15 +56,21 @@ public class UserService {
 
     public ResponseEntity<?> login(LoginUserDTO login) {
 
-        var userNamePassword = new UsernamePasswordAuthenticationToken(login.login(), login.senha());
-        var auth = authenticationManager.authenticate(userNamePassword);
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+        try {
+            var userNamePassword = new UsernamePasswordAuthenticationToken(login.login(), login.senha());
+            var auth = authenticationManager.authenticate(userNamePassword);
+            var token = tokenService.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoggedUserDTO((User) auth.getPrincipal(), token));
+            return ResponseEntity.ok(new LoggedUserDTO((User) auth.getPrincipal(), token));
+        } catch (AuthenticationException e) {
+            throw new InvalidLoginException("Login ou senha inválidos");
+        }
     }
 
     @Transactional
     public ResponseEntity<?> analyzeText(String text, AIModel model, String token) throws Exception {
+
+        if (model.getCharactersLimit() < text.length()) throw new CharacterLimitReachedException("Tamanho do texto: " + text.length() + " - Limite do modelo " + model.getModelName() + ": " + model.getCharactersLimit());
 
         AnalysisDTO analysisDTO = model.getAI().getApiConnector().getAnalysisOfText(text, model);
 
