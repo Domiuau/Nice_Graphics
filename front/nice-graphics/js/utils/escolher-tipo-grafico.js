@@ -63,7 +63,7 @@ document.querySelectorAll('.container-grafico-acoes').forEach(container => {
     const ctx = container.querySelector('canvas').getContext('2d');
 
     // Criar o gráfico inicial para o container
-    criarGraficoPeloTipoEscolhido('pie', ctx); // Gráfico inicial aqui, como 'pie'
+    criarGraficoPeloTipoEscolhido('bar', ctx); // Gráfico inicial aqui, como 'pie'
 
     // Adiciona eventos aos botões dentro de cada container
     container.querySelectorAll('.opcao-grafico').forEach(botao => {

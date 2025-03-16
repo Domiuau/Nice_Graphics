@@ -60,6 +60,10 @@
     border: 1px solid rgba(59, 99, 168, 0.1);
 }
 
+#txtarea-texto-usuario:focus {
+    outline: none;
+}
+
 .opcoes-ia {
     display: flex;
     flex-direction: column;
