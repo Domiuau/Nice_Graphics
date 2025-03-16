@@ -32,8 +32,11 @@ const dadosGrafico = {
             'rgb(54, 162, 235)'
         ],
         borderWidth: 2
-    }]
+    }],
 };
+
+// Adicionando o plugin Chart.js Datalabels
+Chart.register(ChartDataLabels);
 
 const opcoesGrafico = {
     responsive: true,
@@ -41,7 +44,8 @@ const opcoesGrafico = {
         title: {
             display: true,
             text: 'Faturamento por Categoria',
-            font: { size: 22 }
+            font: { size: 22, weight: 'bold' },
+            color: '#222'
         },
         tooltip: {
             callbacks: {
@@ -49,6 +53,72 @@ const opcoesGrafico = {
                     return `Valor: ${tooltipItem.raw} vendas`;
                 }
             }
+        },
+        legend: {
+            display: true,
+            position: 'top',
+            labels: {
+                font: {
+                    size: 14,
+                    weight: 'bold'
+                },
+                color: '#333',
+                padding: 15,
+                boxWidth: 20,
+                boxHeight: 15
+            }
+        },
+        datalabels: {
+            display: true,
+            color: 'black',
+            font: {
+                weight: 'light',
+                size: 14
+            },
+            anchor: 'end',
+            align: 'top',
+            padding: { bottom: 10 },
+            formatter: (value) => `${value}`
+        }
+    },
+    scales: {
+        x: {
+            title: {
+                display: true,
+                text: 'Categorias de Produtos',
+                font: {
+                    size: 18, 
+                    weight: 'bold'
+                },
+                color: '#333',
+                padding: { top: 40 } // Espaçamento entre os rótulos e a legenda
+            },
+            ticks: {
+                font: {
+                    size: 14
+                },
+                color: '#555'
+            }
+        },
+        y: {
+            title: {
+                display: true,
+                text: 'Faturamento (R$)',
+                font: {
+                    size: 18, 
+                    weight: 'bold'
+                },
+                color: '#333', 
+                padding: { bottom: 40 }, // Maior espaço entre os números do eixo Y e a legenda
+                align: 'center' 
+            },
+            ticks: {
+                font: {
+                    size: 14
+                },
+                color: '#555'
+            },
+            beginAtZero: true
         }
     },
     animation: {
@@ -57,13 +127,15 @@ const opcoesGrafico = {
     }
 };
 
+
+
 // Encontra todos os containers de gráficos
 document.querySelectorAll('.container-grafico-acoes').forEach(container => {
     // Identifica o canvas dentro do container
     const ctx = container.querySelector('canvas').getContext('2d');
 
     // Criar o gráfico inicial para o container
-    criarGraficoPeloTipoEscolhido('bar', ctx); // Gráfico inicial aqui, como 'pie'
+    criarGraficoPeloTipoEscolhido('bar', ctx); // Gráfico inicial aqui, como 'bar'
 
     // Adiciona eventos aos botões dentro de cada container
     container.querySelectorAll('.opcao-grafico').forEach(botao => {
