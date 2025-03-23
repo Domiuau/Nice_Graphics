@@ -2,6 +2,8 @@
     width: 100%;
     color: var(--font-3);
     position: relative; 
+
+    padding-bottom: 200px;
 }
 
 .banner-container {
@@ -21,7 +23,7 @@
     justify-content: center;
     
     position: absolute;
-    top: 135%;
+    top: 145%;
     left: 50%;
     transform: translate(-50%, -50%); /* Centraliza os cards sobre o banner */
     
