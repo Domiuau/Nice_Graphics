@@ -11,7 +11,7 @@
     color: var(--font-3);
     font-weight: 500;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
     top: 0;
 }
 
