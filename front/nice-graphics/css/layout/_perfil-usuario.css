@@ -1,0 +1,9 @@
+.container-perfil-usuario {
+    padding: 200px;
+}
+
+.container-perfil-usuario h2 {
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-weight: 500;
+}

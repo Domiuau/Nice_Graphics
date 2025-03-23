@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONTS - POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+
+        <!-- ICONE NICE GRAPHICS -->
+        <link rel="shortcut icon" href="../img/logo-icon.png" type="image/x-icon">
+
+    <title>Nice Graphics - Perfil Usuário</title>
+</head>
+
+<body>
+
+    <header class="header" id="header">
+
+        <nav class="navbar-header">
+            <ul>
+                <li>
+                    <div>
+                        <ul class="navbar-header-lista">
+                            <li class="navbar-logotipo">
+                                <a href="../index.html">
+                                    <img src="../img/Logo Animada Preto.png" alt="Logotipo Nice Graphics">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./gerar-grafico.html">Gerar gráficos</a>
+                            </li>
+                            <li>
+                                <a href="./como-utilizar.html">Como utilizar</a>
+                            </li>
+                            <li>
+                                <a href="./premium.html">Premium</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="icone-usuario">
+                        <p>Nome Usuário</p>
+                        <button class="btn-icone-usuario" title="Perfil Usuário"><i class='bx bx-user'></i></button>
+                        <button class="btn-icone-sair" title="Sair"><i class='bx bx-log-out'></i></button>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main class="container-perfil-usuario" id="container-perfil-usuario">
+
+        <h1>Gerenciamento da Conta</h1>
+
+        <h2>Meus Dados</h2>
+
+        <form class="formulario" id="formulario" method="post">
+
+            <label for="input-email">E-mail</label>
+            <input type="email" name="input-email" id="input-email" placeholder="exemplo@email.com">
+            <label for="input-senha">Senha</label>
+            <input type="password" name="input-senha" id="input-senha" placeholder="********">
+            <label for="input-senha-confirmacao">Confirme a senha</label>
+            <input type="password" name="input-senha-confirmacao" id="input-senha-confirmacao" placeholder="********">            
+        
+            <button type="submit" class="btn-formulario">Alterar Dados</button>
+
+        </form>
+
+    </main>
+
+    <footer class="footer" id="footer">
+
+        <div class="logo-footer">
+            <img src="../img/Logo Animada.png" alt="">
+        </div>
+
+        <div class="rodape-links">
+            <div class="social-media">
+                <a href="#" title="Instagram">
+                    <i class='bx bxl-instagram'></i>
+                </a>
+                <a href="#" title="Facebook">
+                    <i class='bx bxl-facebook-circle'></i>
+                </a>
+                <a href="#" title="Youtube">
+                    <i class='bx bxl-youtube'></i>
+                </a>
+            </div>
+
+            <div class="termos-e-politica-privacidade-links">
+                <ul>
+                    <li>
+                        <a href="#">Termos de Uso</a>
+                    </li>
+                    <li>
+                        <a href="#">Política de Privacidade</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p>Copyright © 2025 Nice Graphics</p>
+            </div>
+        </div>
+
+        
+    </footer>
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+    <!-- JS SCRIPT -->
+    <script src="../js/script.js"></script>
+    <script src="../js/pages/header.js"></script>
+</body>
+
+</html>
