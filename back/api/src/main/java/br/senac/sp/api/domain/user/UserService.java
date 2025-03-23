@@ -92,7 +92,7 @@ public class UserService {
         return ResponseEntity.ok(new UserAnalyzesDTO(user.getAnalyses().stream().map(analysis ->
                 new AnalysisReturnDTO(analysis.getAnalyzedText(), analysis.getCostInTokens(), analysis.getModelWhoResponded(), analysis.getAnalyzedBy(),
                         analysis.getCreation_date(), analysis.getContexts().stream().map(context ->
-                        new ContextDTO(context.getDescription(), context.getData().stream().map(data ->
+                        new ContextDTO(context.getDescription(), context.getType(), context.getNumberRepresented(), context.getData().stream().map(data ->
                                 new DataDTO(data.getField(), data.getValue())).toList())).toList())).toList()));
     }
 

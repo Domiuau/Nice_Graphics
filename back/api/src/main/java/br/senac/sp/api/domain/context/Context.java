@@ -23,15 +23,19 @@ public class Context {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String description;
+    private String type;
+    private String numberRepresented;
     @OneToMany(mappedBy = "context", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Data> data;
     @ManyToOne
     @JoinColumn(name = "analysis_id")
     private Analysis analysis;
 
-    public Context(String description, List<DataDTO> dataDTO, Analysis analysis) {
+    public Context(String description, String type, String numberRepresented, List<DataDTO> dataDTO, Analysis analysis) {
         this.description = description;
         this.analysis = analysis;
+        this.type = type;
+        this.numberRepresented = numberRepresented;
         this.data = dataDTO.stream().map(data -> new Data(data.field(), data.value(), this)).toList();
     }
 

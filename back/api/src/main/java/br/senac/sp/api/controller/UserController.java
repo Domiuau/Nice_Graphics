@@ -20,42 +20,42 @@ public class UserController {
 
     private AiModelsDetailsReturnDTO aiModelsDetailsReturnDTO = new AiModelsDetailsReturnDTO();
 
-    @PostMapping("/analyze/gpt_3_5")
+    @PostMapping("/analyze/gpt-3.5-turbo") @CrossOrigin
     public ResponseEntity<?> analyzeTextWithGpt3_5(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(required = false, name = "Authorization") String token) throws Exception {
         return userService.analyzeText(textForAnalyzeDTO.text(), OpenAiGPTModel.GPT_3_5_TURBO, token);
     }
 
-    @PostMapping("/analyze/gpt_4")
+    @PostMapping("/analyze/gpt-4") @CrossOrigin
     public ResponseEntity<?> analyzeTextWithGpt4(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(name = "Authorization") String token) throws Exception {
         return userService.analyzeText(textForAnalyzeDTO.text(), OpenAiGPTModel.GPT_4, token);
     }
 
-    @PostMapping("/analyze/gemini_1_5_flash")
+    @PostMapping("/analyze/gemini-1.5-flash") @CrossOrigin
     public ResponseEntity<?> analyzeTextWithGemini1_5_flash(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(required = false, name = "Authorization") String token) throws Exception {
         return userService.analyzeText(textForAnalyzeDTO.text(), GeminiModel.GEMINI_1_5_FLASH, token);
     }
 
-    @PostMapping("/analyze/gemini_2_0_flash")
+    @PostMapping("/analyze/gemini-2.0-flash") @CrossOrigin
     public ResponseEntity<?> analyzeTextWithGemini2_0_flash(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(name = "Authorization") String token) throws Exception {
         return userService.analyzeText(textForAnalyzeDTO.text(), GeminiModel.GEMINI_2_0_FLASH, token);
     }
 
-    @PostMapping("/analyze/deepseek_chat")
+    @PostMapping("/analyze/deepseek-chat") @CrossOrigin
     ResponseEntity<?> analyzeTextWithDeepseek_chat(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(required = false, name = "Authorization") String token) throws Exception {
         return userService.analyzeText(textForAnalyzeDTO.text(), DeepseekModel.DEEPSEEK_CHAT, token);
     }
 
-    @PostMapping("/analyze/deepseek_reasoner")
+    @PostMapping("/analyze/deepseek-reasoner") @CrossOrigin
     ResponseEntity<?> analyzeTextWithDeepseek_reasoner(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(name = "Authorization") String token) throws Exception {
         return userService.analyzeText(textForAnalyzeDTO.text(), DeepseekModel.DEEKSEEK_REASONER, token);
     }
 
-    @GetMapping("/analyze/generations")
+    @GetMapping("/analyze/generations") @CrossOrigin
     public ResponseEntity<?> getGenerations(@RequestHeader(name = "Authorization") String token) {
         return userService.getGenerations(token);
     }
 
-    @GetMapping("/models/details")
+    @GetMapping("/models/details") @CrossOrigin
     public ResponseEntity<?> getModelsDetails() {
         return ResponseEntity.ok(aiModelsDetailsReturnDTO);
     }

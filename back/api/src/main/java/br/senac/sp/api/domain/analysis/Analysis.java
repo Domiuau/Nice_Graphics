@@ -37,7 +37,7 @@ public class Analysis {
 
     public Analysis(AnalysisDTO analysisDTO, User user) {
         this.summary = analysisDTO.textAnalysis().summary();
-        this.contexts = analysisDTO.textAnalysis().contexts().stream().map(context -> new Context(context.description(), context.data(), this)).toList();
+        this.contexts = analysisDTO.textAnalysis().contexts().stream().map(context -> new Context(context.description(), context.type(), context.numberRepresented(), context.data(), this)).toList();
         this.analyzedText = analysisDTO.analyzedText();
         this.costInTokens = analysisDTO.costInTokens();
         this.modelWhoResponded = analysisDTO.modelWhoResponded();

@@ -13,6 +13,8 @@ create table analysis (
 create table context (
     id VARCHAR(36) PRIMARY KEY,
     description VARCHAR(200) not null,
+    type VARCHAR(20) not null,
+    number_represented VARCHAR(50) not null,
     analysis_id VARCHAR(36) not null,
     FOREIGN KEY (analysis_id) REFERENCES analysis(id)
 );

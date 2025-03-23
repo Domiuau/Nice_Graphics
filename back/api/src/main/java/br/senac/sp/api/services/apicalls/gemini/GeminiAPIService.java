@@ -64,7 +64,7 @@ public class GeminiAPIService extends APIConnector {
         return "{\n" +
                 "  \"systemInstruction\": {\n" +
                 "    \"parts\": [\n" +
-                "      {\"text\": " + AssistantPrompt.BASIC_PROMPT_NO_JSON_INDICATES.getPrompt() + " }\n" +
+                "      {\"text\": " + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART_NO_JSON_INDICATES.getPrompt() + " }\n" +
                 "    ]\n" +
                 "  },\n" +
                 "  \"contents\": [\n" +
