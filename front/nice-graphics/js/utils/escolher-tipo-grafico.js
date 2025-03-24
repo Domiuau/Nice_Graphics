@@ -206,19 +206,24 @@ document.querySelectorAll('.container-grafico-acoes').forEach(container => {
 });
 
 async function fetchDados(texto) {
-
     try {
         const selectedValue = selectElement.value;
-
         console.log(selectedValue);
-        const response = await fetch("http://localhost:8080/user/analyze/" + selectedValue, {
+
+        const authToken = localStorage.getItem("authToken");
+
+        const headers = {
+            "Content-Type": "application/json"
+        };
+
+        if (authToken) {
+            headers["Authorization"] = `Bearer ${authToken}`;
+        }
+
+        const response = await fetch(`http://localhost:8080/user/analyze/${selectedValue}`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                text: texto
-            })
+            headers: headers,
+            body: JSON.stringify({ text: texto })
         });
 
         if (!response.ok) {
@@ -226,7 +231,7 @@ async function fetchDados(texto) {
         }
 
         const data = await response.json();
-        resumoTexto.innerText = data.textAnalysis.summary
+        resumoTexto.innerText = data.textAnalysis.summary;
         const dadosProntos = await prepararDados(data);
         return dadosProntos;
     } catch (error) {
@@ -234,6 +239,7 @@ async function fetchDados(texto) {
         return null;
     }
 }
+
 
 const botaoGerar = document.getElementById("btn-gerar")
 botaoGerar.addEventListener("click", async function () {

@@ -23,13 +23,13 @@ public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @PostMapping("/cadastrar")
+    @PostMapping("/register") @CrossOrigin
     public ResponseEntity<?> registerUser(@RequestBody @Valid RegisterUserDTO cadastro) {
 
         return userService.cadastrar(cadastro);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login") @CrossOrigin
     public ResponseEntity<?> loginUser(@RequestBody @Valid LoginUserDTO login) {
 
         return userService.login(login);
@@ -38,7 +38,7 @@ public class AuthenticationController {
 
 
 
-    @GetMapping("/testandoAPI")
+    @GetMapping("/testandoAPI") @CrossOrigin
     public ResponseEntity<?> testandoAPI() throws Exception {
 
         DeepseekAPIService deepseekAPIService = new DeepseekAPIService();
