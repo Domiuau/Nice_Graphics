@@ -76,9 +76,9 @@ public class UserService {
 
         if (token != null) {
             String username = tokenService.validateToken(token.replace("Bearer ", ""));
-            if (username == null) return ResponseEntity.badRequest().body("Token inválido");
-
             User user = (User) userRepository.findByUsername(username);
+            if (user == null) return ResponseEntity.badRequest().body("Token inválido");
+
             Analysis analysis = new Analysis(analysisDTO, user);
             user.getAnalyses().add(analysis);
         }

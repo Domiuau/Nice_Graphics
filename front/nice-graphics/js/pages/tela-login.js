@@ -52,6 +52,7 @@ function atualizarFormulario(tipo) {
                     if (data.token) {
                         localStorage.setItem('authToken', data.token);
                         console.log('Token armazenado com sucesso:', localStorage.getItem('authToken'));
+                        window.location.href = "gerar-grafico.html";
                     } else {
                         console.warn('Nenhum token encontrado na resposta.');
                     }
@@ -118,6 +119,8 @@ function atualizarFormulario(tipo) {
                     if (data.token) {
                         localStorage.setItem('authToken', data.token);
                         console.log('Token armazenado com sucesso:', localStorage.getItem('authToken'));
+                        window.location.href = "gerar-grafico.html";
+
                     } else {
                         console.warn('Nenhum token encontrado na resposta.');
                     }

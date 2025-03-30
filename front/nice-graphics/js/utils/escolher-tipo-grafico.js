@@ -1,7 +1,24 @@
+import { highlightColors } from './conversor-de-cores.js';
+
 const areaDoTexto = document.getElementById("txtarea-texto-usuario")
 const container = document.getElementById('container-graficos-gerados');
 const selectElement = document.getElementById('select-opcoes-ia');
 const resumoTexto = document.getElementById('resumo-texto');
+const coresPrincipaisSemOpacidade = [
+    '#FF6384',
+    '#FF9F40',
+    '#FFCD56',
+    '#4BC0C0',
+    '#36A2EB'
+];
+
+const coresPrincipais = [
+    '#FF6384',
+    '#FF9F40',
+    '#FFCD56',
+    '#4BC0C0',
+    '#36A2EB'
+];
 
 
 
@@ -19,10 +36,11 @@ function criarGraficoPeloTipoEscolhido(tipo, ctx) {
     });
 }
 
-function criarGraficoPelosDadosAPI(dados, ctx) {
+function criarGraficoPelosDadosAPI(dados, cores, ctx) {
     if (ctx.grafico) {
         ctx.grafico.destroy(); // Remove o gráfico do tipo anterior
     }
+
 
     ctx.grafico = new Chart(ctx.canvas, {
         type: dados.tipo,
@@ -31,24 +49,12 @@ function criarGraficoPelosDadosAPI(dados, ctx) {
             datasets: [{
                 label: dados.descricao,
                 data: dados.dados,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
-                    'rgba(255, 205, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(54, 162, 235, 0.6)'
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)'
-                ],
+                backgroundColor: cores,
+                borderColor: cores,
                 borderWidth: 2
             }]
         },
-        options: getOpcoesGrafico(dados)
+        options: getOpcoesGrafico(dados, highlightColors(cores, 50))
     });
 }
 
@@ -58,20 +64,8 @@ const dadosGrafico = {
     datasets: [{
         label: 'Faturamento por Categoria',
         data: [50000, 30000, 40000, 35000, 25000],
-        backgroundColor: [
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 205, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(54, 162, 235, 0.6)'
-        ],
-        borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)'
-        ],
+        backgroundColor: coresPrincipaisSemOpacidade,
+        borderColor: coresPrincipais,
         borderWidth: 2
     }],
 };
@@ -79,7 +73,7 @@ const dadosGrafico = {
 // Adicionando o plugin Chart.js Datalabels
 Chart.register(ChartDataLabels);
 
-function getOpcoesGrafico(dados) {
+function getOpcoesGrafico(dados, cores) {
     return {
         responsive: true,
         plugins: {
@@ -113,13 +107,7 @@ function getOpcoesGrafico(dados) {
             },
             datalabels: {
                 display: true,
-                color: [
-                    'rgb(122, 47, 63)',
-                    'rgb(102, 65, 27)',
-                    'rgb(85, 69, 30)',
-                    'rgb(22, 56, 56)',
-                    'rgb(18, 47, 66)'
-                ],
+                color: cores,
                 font: {
                     weight: 'bold',
                     size: 16
@@ -247,6 +235,7 @@ botaoGerar.addEventListener("click", async function () {
 
 
     const dadosProntos = await fetchDados(areaDoTexto.value)
+
     container.innerHTML = ''
     console.log("dados: " + dadosProntos)
     dadosProntos.forEach(dados => {
@@ -292,11 +281,9 @@ async function prepararDados(data) {
 
 function adicionarGrafico(dadosDoGrafico) {
 
-    // Cria a div que irá conter o gráfico e os botões
     const divGrafico = document.createElement('div');
     divGrafico.classList.add('container-grafico-acoes');
 
-    // Define o HTML interno da div, com o canvas que receberá o gráfico
     divGrafico.innerHTML = `
       <div class="opcoes-tipos-de-grafico">
         <button class="opcao-grafico grafico-barra">
@@ -326,16 +313,50 @@ function adicionarGrafico(dadosDoGrafico) {
       </div>
   
       <div class="opcoes-download" id="opcoes-download">
-        <button class="opcao-download opcao-download-pdf">
+        <button class="opcao-download opcao-download-pdf" id="opcao-download-pdf">
           <i class='bx bxs-file-pdf'></i>
           <p>Download em PDF</p>
         </button>
-        <button class="opcao-download opcao-download-png">
+        <button class="opcao-download opcao-download-png" id="opcao-download-png">
           <i class='bx bxs-file-png'></i>
           <p>Download em PNG</p>
         </button>
       </div>
     `;
+
+    let indexCor = 0;
+
+    dadosDoGrafico.dados.forEach(dado => {
+
+        divGrafico.innerHTML += `
+            <input type="color" id="seletorCores-${indexCor}" value="${coresPrincipais[indexCor % coresPrincipais.length]}">
+        `;
+
+        indexCor++;
+    });
+
+    container.appendChild(divGrafico);
+    const cfx = divGrafico.querySelector('canvas').getContext('2d');
+
+    divGrafico.querySelectorAll('input[type="color"]').forEach(cor => {
+        cor.addEventListener('input', function () {
+            console.log('Cor selecionada:', this.value);
+            let cores = []
+
+            divGrafico.querySelectorAll('input[type="color"]').forEach(corNova => {
+
+
+                cores.push(corNova.value)
+
+            })
+
+            criarGraficoPelosDadosAPI(dadosDoGrafico, cores, cfx);
+
+
+        });
+
+
+    })
 
     divGrafico.querySelectorAll('.opcao-grafico').forEach(botao => {
         botao.addEventListener('click', function () {
@@ -348,18 +369,53 @@ function adicionarGrafico(dadosDoGrafico) {
             else if (this.classList.contains('grafico-radar')) tipoGrafico = 'radar';
             dadosDoGrafico.tipo = tipoGrafico
 
+            let cores = []
 
-            criarGraficoPelosDadosAPI(dadosDoGrafico, cfx);
+            divGrafico.querySelectorAll('input[type="color"]').forEach(corNova => {
+
+
+                cores.push(corNova.value)
+
+            })
+
+            criarGraficoPelosDadosAPI(dadosDoGrafico, cores, cfx);
         });
     });
 
-    // Adiciona a div ao container principal
-    container.appendChild(divGrafico);
 
-    // Seleciona o canvas que acabou de ser inserido
-    const cfx = divGrafico.querySelector('canvas').getContext('2d');
+    divGrafico.querySelector('#opcao-download-png').addEventListener('click', function () {
+        
+        const canvas = divGrafico.querySelector('canvas');
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = dadosDoGrafico.tipo + '-' + dadosDoGrafico.descricao + '.png';
 
-    criarGraficoPelosDadosAPI(dadosDoGrafico, cfx);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    });
+
+    divGrafico.querySelector('#opcao-download-pdf').addEventListener('click', function () {
+
+        const canvas = divGrafico.querySelector('canvas');
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'mm',
+            format: 'a4'
+        });
+
+        const pdfWidth = 150;
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+        doc.addImage(canvas.toDataURL('image/png'), 'PNG', 30, 10, pdfWidth, pdfHeight);
+        doc.save(dadosDoGrafico.tipo + '-' + dadosDoGrafico.descricao + '.pdf');
+    });
+
+    
+
+    criarGraficoPelosDadosAPI(dadosDoGrafico, coresPrincipais, cfx);
 }
 
 fetch('http://localhost:8080/user/models/details', {
@@ -387,4 +443,5 @@ fetch('http://localhost:8080/user/models/details', {
     .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
     });
+
 

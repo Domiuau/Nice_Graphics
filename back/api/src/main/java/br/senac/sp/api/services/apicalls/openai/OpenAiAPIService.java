@@ -67,7 +67,7 @@ public class OpenAiAPIService extends APIConnector {
         return "{\n" +
                 "  \"model\": " + model.getModel() + ",\n" +
                 "  \"messages\": [\n" +
-                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART_NO_JSON_INDICATES.getPrompt() + " },\n" +
+                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART.getPrompt() + " },\n" +
                 "    {\"role\": \"user\", \"content\": " + objectMapper.writeValueAsString(text) + "}\n" +
                 "  ],\n" +
                 "  \"temperature\": 0,\n" +

@@ -26,8 +26,7 @@ public class DeepseekAPIService extends APIConnector {
 
         final String json = getPostJsonModelDeepseek(text, model);
 
-        String jsonResponseString = callDeepseekAPI(json);
-        System.out.println(jsonResponseString);
+        String jsonResponseString = callDeepseekAPI(json).replace("```json", "").replace("```", "");
         JsonNode rootNode = objectMapper.readTree(jsonResponseString);
         String principalMessage = rootNode.path("choices").get(0).path("message").path("content").asText();
         String modelResponse = rootNode.path("model").asText();
@@ -68,7 +67,7 @@ public class DeepseekAPIService extends APIConnector {
         return "{\n" +
                 "  \"model\": " + model.getModel() + ",\n" +
                 "  \"messages\": [\n" +
-                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART_NO_JSON_INDICATES.getPrompt() + "},\n" +
+                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART.getPrompt() + "},\n" +
                 "    {\"role\": \"user\", \"content\": " + objectMapper.writeValueAsString(text) + "}\n" +
                 "  ],\n" +
                 "  \"stream\": false,\n" +

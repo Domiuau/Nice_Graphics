@@ -97,6 +97,10 @@
             </div>
 
             <div class="container-graficos-gerados" id="container-graficos-gerados">
+
+                <div id="loading" style="display: none;">🔄 Carregando...</div>
+
+
                 <h2>Escolha o tipo de gráfico:</h2>
 
                 <div class="container-grafico-acoes">
@@ -137,12 +141,12 @@
     
                     <div class="opcoes-download" id="opcoes-download">
     
-                        <button class="opcao-download opcao-download-pdf">
+                        <button class="opcao-download opcao-download-pdf" id="opcao-download-pdf">
                             <i class='bx bxs-file-pdf'></i>
                             <p>Download em PDF</p>
                         </button>
     
-                        <button class="opcao-download opcao-download-png">
+                        <button class="opcao-download opcao-download-png" id="opcao-download-png">
                             <i class='bx bxs-file-png'></i>
                             <p>Download em PNG</p>
                         </button>
@@ -206,9 +210,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
     <!-- JS SCRIPT -->
     <script src="../js/script.js"></script>
-    <script src="../js/utils/escolher-tipo-grafico.js"></script>
+    <script type="module" src="../js/utils/escolher-tipo-grafico.js"></script>
 </body>
 
 </html>

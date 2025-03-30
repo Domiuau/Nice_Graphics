@@ -42,7 +42,8 @@ public class GeminiAPIService extends APIConnector {
 
         String json = getPostJsonModelGemini(text);
 
-        String jsonResponseString = callGeminiAPI(json, model);
+        String jsonResponseString = callGeminiAPI(json, model).replace("```json", "").replace("```", "");
+        System.out.println(jsonResponseString);
         JsonNode rootNode = objectMapper.readTree(jsonResponseString);
         String principalMessage = rootNode.path("candidates").get(0).path("content").path("parts").get(0).path("text").asText();
         String modelResponse = rootNode.path("modelVersion").asText();
@@ -64,7 +65,7 @@ public class GeminiAPIService extends APIConnector {
         return "{\n" +
                 "  \"systemInstruction\": {\n" +
                 "    \"parts\": [\n" +
-                "      {\"text\": " + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART_NO_JSON_INDICATES.getPrompt() + " }\n" +
+                "      {\"text\": " + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART.getPrompt() + " }\n" +
                 "    ]\n" +
                 "  },\n" +
                 "  \"contents\": [\n" +
