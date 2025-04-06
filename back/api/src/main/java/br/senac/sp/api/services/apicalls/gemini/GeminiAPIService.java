@@ -51,6 +51,7 @@ public class GeminiAPIService extends APIConnector {
 
         try {
 
+            System.out.println("Principal Message: " + principalMessage);
             TextAnalysisDTO textAnalysisDTO = objectMapper.readValue(principalMessage, TextAnalysisDTO.class);
             return new AnalysisDTO(text, totalTokens, modelResponse, this.nameAI, new Date(), textAnalysisDTO);
         } catch (Exception e) {

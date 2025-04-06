@@ -105,4 +105,13 @@ public class UserService {
 
     }
 
+    public ResponseEntity<?> validateToken(String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+
+        return user == null ?
+                ResponseEntity.badRequest().body("Token inválido") :
+                ResponseEntity.ok(new LoggedUserDTO(user, token));
+
+    }
 }

@@ -13,11 +13,16 @@ const coresPrincipaisSemOpacidade = [
 ];
 
 const coresPrincipais = [
-    '#FF6384',
-    '#FF9F40',
-    '#FFCD56',
-    '#4BC0C0',
-    '#36A2EB'
+    '#FF6384', '#FF9F40', '#FFCD56', '#4BC0C0', '#36A2EB',
+    '#9966FF', '#C9CBCF', '#8B0000', '#008080', '#00FF7F',
+    '#DC143C', '#7FFF00', '#FFD700', '#DA70D6', '#00CED1',
+    '#1E90FF', '#FF1493', '#00BFFF', '#FF4500', '#ADFF2F',
+    '#FA8072', '#20B2AA', '#9370DB', '#B0C4DE', '#66CDAA',
+    '#FF69B4', '#4682B4', '#7CFC00', '#BA55D3', '#5F9EA0',
+    '#FF6347', '#40E0D0', '#D2691E', '#9ACD32', '#6A5ACD',
+    '#87CEEB', '#FFB6C1', '#BDB76B', '#00FA9A', '#F08080',
+    '#CD5C5C', '#3CB371', '#8FBC8F', '#483D8B', '#DDA0DD',
+    '#778899', '#6B8E23', '#A0522D', '#48D1CC', '#FF00FF'
 ];
 
 
@@ -32,11 +37,11 @@ function criarGraficoPeloTipoEscolhido(tipo, ctx) {
     ctx.grafico = new Chart(ctx.canvas, {
         type: tipo,
         data: dadosGrafico,
-        options: getOpcoesGrafico("teste", "tipo de dado (vou fz no back)", false)
+        options: getOpcoesGrafico("teste", "tipo de dado (vou fz no back)", true)
     });
 }
 
-function criarGraficoPelosDadosAPI(dados, cores, ctx) {
+function criarGraficoPelosDadosAPI(dados, cores, ctx, isDataLabelsActive) {
     if (ctx.grafico) {
         ctx.grafico.destroy(); // Remove o gráfico do tipo anterior
     }
@@ -54,7 +59,7 @@ function criarGraficoPelosDadosAPI(dados, cores, ctx) {
                 borderWidth: 2
             }]
         },
-        options: getOpcoesGrafico(dados, highlightColors(cores, 50))
+        options: getOpcoesGrafico(dados, highlightColors(cores, 50), isDataLabelsActive)
     });
 }
 
@@ -73,7 +78,7 @@ const dadosGrafico = {
 // Adicionando o plugin Chart.js Datalabels
 Chart.register(ChartDataLabels);
 
-function getOpcoesGrafico(dados, cores) {
+function getOpcoesGrafico(dados, cores, isDataLabelsActive) {
     return {
         responsive: true,
         plugins: {
@@ -102,11 +107,29 @@ function getOpcoesGrafico(dados, cores) {
                     color: '#333',
                     padding: 15,
                     boxWidth: 20,
-                    boxHeight: 15
+                    boxHeight: 15,
+                    generateLabels: function(chart) {
+                        const data = chart.data;
+                        if (data.labels.length && data.datasets.length) {
+                            return data.labels.map((label, i) => {
+                                const dataset = data.datasets[0];
+                                const value = dataset.data[i];
+                                return {
+                                    text: label + ' (' + value + ')',
+                                    fillStyle: dataset.backgroundColor[i],
+                                    strokeStyle: dataset.borderColor ? dataset.borderColor[i] : '#000',
+                                    lineWidth: dataset.borderWidth ? dataset.borderWidth[i] : 1,
+                                    hidden: isNaN(value) || chart.getDatasetMeta(0).data[i].hidden,
+                                    index: i
+                                };
+                            });
+                        }
+                        return [];
+                    }
                 }
             },
             datalabels: {
-                display: true,
+                display: isDataLabelsActive,
                 color: cores,
                 font: {
                     weight: 'bold',
@@ -119,7 +142,11 @@ function getOpcoesGrafico(dados, cores) {
             }
         },
         scales: {
+            
             x: {
+                grid: {
+                    display: !(dados.tipo == "doughnut" || dados.tipo == "pie") 
+                },
                 title: {
                     display: false,
                     text: 'Categorias de Produtos',
@@ -132,12 +159,15 @@ function getOpcoesGrafico(dados, cores) {
                 },
                 ticks: {
                     font: {
-                        size: 14
+                        size: (dados.tipo == "doughnut" || dados.tipo == "pie") ? 0 : 16
                     },
                     color: '#555'
                 }
             },
             y: {
+                grid: {
+                    display: !(dados.tipo == "doughnut" || dados.tipo == "pie")  
+                },
                 title: {
                     display: true,
                     text: dados.numeroRepresentado,
@@ -151,15 +181,15 @@ function getOpcoesGrafico(dados, cores) {
                 },
                 ticks: {
                     font: {
-                        size: 16
+                        size: (dados.tipo == "doughnut" || dados.tipo == "pie") ? 0 : 16
                     },
                     color: '#555'
                 },
-                beginAtZero: true
+                beginAtZero: !(dados.tipo == "line" || dados.tipo == "radar")
             }
         },
         animation: {
-            duration: 2000,
+            duration: 1500,
             easing: 'easeInOutBounce'
         }
     };
@@ -285,33 +315,33 @@ function adicionarGrafico(dadosDoGrafico) {
     divGrafico.classList.add('container-grafico-acoes');
 
     divGrafico.innerHTML = `
-      <div class="opcoes-tipos-de-grafico">
-        <button class="opcao-grafico grafico-barra">
-          <i class='bx bx-bar-chart-alt-2'></i>
-          <p>Barra</p>
-        </button>
-        <button class="opcao-grafico grafico-linha">
-          <i class='bx bx-line-chart'></i>
-          <p>Linha</p>
-        </button>
-        <button class="opcao-grafico grafico-pizza">
-          <i class='bx bx-pie-chart-alt-2'></i>
-          <p>Pizza</p>
-        </button>
-        <button class="opcao-grafico grafico-rosquinha">
-          <i class='bx bx-doughnut-chart'></i>
-          <p>Rosquinha</p>
-        </button>
-        <button class="opcao-grafico grafico-radar">
-          <i class='bx bx-radar'></i>
-          <p>Radar</p>
-        </button>
-      </div>
+    <div class="opcoes-tipos-de-grafico">
+      <button class="opcao-grafico grafico-barra">
+        <i class='bx bx-bar-chart-alt-2'></i>
+        <p>Barra</p>
+      </button>
+      <button class="opcao-grafico grafico-linha">
+        <i class='bx bx-line-chart'></i>
+        <p>Linha</p>
+      </button>
+      <button class="opcao-grafico grafico-pizza">
+        <i class='bx bx-pie-chart-alt-2'></i>
+        <p>Pizza</p>
+      </button>
+      <button class="opcao-grafico grafico-rosquinha">
+        <i class='bx bx-doughnut-chart'></i>
+        <p>Rosquinha</p>
+      </button>
+      <button class="opcao-grafico grafico-radar">
+        <i class='bx bx-radar'></i>
+        <p>Radar</p>
+      </button>
+    </div>
   
-      <div class="container-grafico-gerado">
-        <canvas></canvas>
-      </div>
-  
+    <div class="container-grafico-gerado">
+      <canvas></canvas>
+    </div>
+
       <div class="opcoes-download" id="opcoes-download">
         <button class="opcao-download opcao-download-pdf" id="opcao-download-pdf">
           <i class='bx bxs-file-pdf'></i>
@@ -322,21 +352,38 @@ function adicionarGrafico(dadosDoGrafico) {
           <p>Download em PNG</p>
         </button>
       </div>
-    `;
+  
+
+    <div class="toggle-wrapper">
+      <label class="switch">
+        <input type="checkbox" id="toggle-btn" checked>
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">Números no gráfico</span>
+    </div>
+  
+
+
+  `;
+
 
     let indexCor = 0;
 
     dadosDoGrafico.dados.forEach(dado => {
 
         divGrafico.innerHTML += `
-            <input type="color" id="seletorCores-${indexCor}" value="${coresPrincipais[indexCor % coresPrincipais.length]}">
-        `;
+        <input type="color" 
+           id="seletorCores-${indexCor}" 
+           value="${coresPrincipais[indexCor % coresPrincipais.length]}" 
+           class="seletor-cor">
+    `;
 
         indexCor++;
     });
 
     container.appendChild(divGrafico);
     const cfx = divGrafico.querySelector('canvas').getContext('2d');
+    const toggle = divGrafico.querySelector('#toggle-btn');
 
     divGrafico.querySelectorAll('input[type="color"]').forEach(cor => {
         cor.addEventListener('input', function () {
@@ -345,18 +392,33 @@ function adicionarGrafico(dadosDoGrafico) {
 
             divGrafico.querySelectorAll('input[type="color"]').forEach(corNova => {
 
-
                 cores.push(corNova.value)
 
             })
 
-            criarGraficoPelosDadosAPI(dadosDoGrafico, cores, cfx);
+            criarGraficoPelosDadosAPI(dadosDoGrafico, cores, cfx, toggle.checked);
 
 
         });
 
 
     })
+
+
+
+    toggle.addEventListener('change', () => {
+
+        let cores = []
+
+        divGrafico.querySelectorAll('input[type="color"]').forEach(corNova => {
+
+
+            cores.push(corNova.value)
+
+        })
+
+        criarGraficoPelosDadosAPI(dadosDoGrafico, cores, cfx, toggle.checked);
+    });
 
     divGrafico.querySelectorAll('.opcao-grafico').forEach(botao => {
         botao.addEventListener('click', function () {
@@ -378,13 +440,13 @@ function adicionarGrafico(dadosDoGrafico) {
 
             })
 
-            criarGraficoPelosDadosAPI(dadosDoGrafico, cores, cfx);
+            criarGraficoPelosDadosAPI(dadosDoGrafico, cores, cfx, toggle.checked);
         });
     });
 
 
     divGrafico.querySelector('#opcao-download-png').addEventListener('click', function () {
-        
+
         const canvas = divGrafico.querySelector('canvas');
         const link = document.createElement('a');
         link.href = canvas.toDataURL('image/png');
@@ -413,35 +475,90 @@ function adicionarGrafico(dadosDoGrafico) {
         doc.save(dadosDoGrafico.tipo + '-' + dadosDoGrafico.descricao + '.pdf');
     });
 
-    
 
-    criarGraficoPelosDadosAPI(dadosDoGrafico, coresPrincipais, cfx);
+
+    criarGraficoPelosDadosAPI(dadosDoGrafico, coresPrincipais, cfx, toggle.checked);
 }
 
-fetch('http://localhost:8080/user/models/details', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-    }
-})
-    .then(response => {
+async function validateToken(token) {
+    try {
+        const response = await fetch('http://localhost:8080/auth/' + token, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
-    })
-    .then(data => {
+
+        //aqui estão os dados do usuário, se ele estiver logado
+        const usuario = await response.json()
+        const paragrafo = document.getElementById("usuario-logado")
+        paragrafo.textContent = "username: " + usuario.username
+        console.log(usuario)
+
+        return usuario;
+    } catch (error) {
+        console.error('There has been a problem with your fetch operation:', error);
+    }
+}
+
+async function fetchModels() {
+    try {
+        const response = await fetch('http://localhost:8080/user/models/details', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
         console.log(data);
+
+        const tokenData = localStorage.getItem('authToken')
+        console.log('Token recuperado:', tokenData);
+
+        const user = await validateToken(tokenData);
+        console.log("Usuário validado no fetchModels:", user);
+
         data.models.forEach(modelo => {
             const newOption = document.createElement('option');
+            const modelRole = modelo.userRole
             newOption.value = modelo.name;
-            newOption.textContent = modelo.name;
-            newOption.disabled = modelo.userRole != "ROLE_USER"
+            newOption.textContent = modelo.name + ", até " + modelo.charactersLimit + " caracteres";
+            console.log(user == null)
+            newOption.disabled = modelRole == "ROLE_USER" ? false : (modelRole == "ROLE_USER_AUTHENTICATED" ? user == null : (user == null ? true : user.role != "PREMIUM_USER"))
             selectElement.appendChild(newOption);
-        })
-    })
-    .catch(error => {
+        });
+    } catch (error) {
         console.error('There has been a problem with your fetch operation:', error);
-    });
+    }
+}
+
+fetchModels()
+
+const botao = document.getElementById("btn-historico")
+botao.addEventListener('click', () => {
+    const token = localStorage.getItem('authToken');
+  
+    fetch('http://localhost:8080/user/analyze/generations', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      const jsonString = JSON.stringify(data, null, 2);
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+    })
+    .catch(error => console.error('Erro:', error));
+  });
 
 

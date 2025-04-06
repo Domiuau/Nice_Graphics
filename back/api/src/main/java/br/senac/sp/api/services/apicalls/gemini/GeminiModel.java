@@ -5,8 +5,9 @@ import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AvailableAI;
 
 public enum GeminiModel implements AIModel {
-    GEMINI_1_5_FLASH("gemini-1.5-flash", 5000, "ROLE_USER"),
-    GEMINI_2_0_FLASH("gemini-2.0-flash", 5000, "ROLE_USER");
+    GEMINI_1_5_FLASH("gemini-1.5-flash", 224000, "ROLE_USER"),
+    GEMINI_1_5_PRO("gemini-1.5-pro", 224000, "ROLE_USER_AUTHENTICATED"),
+    GEMINI_2_0_FLASH("gemini-2.0-flash", 224000, "ROLE_USER_AUTHENTICATED");
 
     private final String model;
     private final AvailableAI ai;

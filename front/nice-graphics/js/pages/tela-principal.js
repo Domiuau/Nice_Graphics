@@ -52,3 +52,8 @@ const meuGraficoRosquinha = new Chart(ctx, {
         }
     }
 });
+
+
+
+  
+

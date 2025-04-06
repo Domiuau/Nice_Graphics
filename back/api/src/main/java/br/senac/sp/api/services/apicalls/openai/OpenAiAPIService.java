@@ -28,7 +28,7 @@ public class OpenAiAPIService extends APIConnector {
 
         final String json = getPostJsonModelOpenAI(text, model);
 
-        String jsonResponseString = callOpenAiAPI(json);
+        String jsonResponseString = callOpenAiAPI(json).replace("```json", "").replace("```", "");
         JsonNode rootNode = objectMapper.readTree(jsonResponseString);
         String principalMessage = rootNode.path("choices").get(0).path("message").path("content").asText();
         String modelResponse = rootNode.path("model").asText();

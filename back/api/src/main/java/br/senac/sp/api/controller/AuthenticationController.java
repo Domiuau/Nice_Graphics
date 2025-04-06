@@ -36,7 +36,11 @@ public class AuthenticationController {
 
     }
 
+    @GetMapping("/{token}") @CrossOrigin
+    public ResponseEntity<?> validateToken(@PathVariable String token) {
 
+        return userService.validateToken(token);
+    }
 
     @GetMapping("/testandoAPI") @CrossOrigin
     public ResponseEntity<?> testandoAPI() throws Exception {

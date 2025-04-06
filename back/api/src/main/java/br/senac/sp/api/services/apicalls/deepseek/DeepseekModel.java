@@ -5,8 +5,8 @@ import br.senac.sp.api.services.apicalls.AvailableAI;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public enum DeepseekModel implements AIModel {
-    DEEPSEEK_CHAT("deepseek-chat", 5000, "ROLE_USER"),
-    DEEKSEEK_REASONER("deepseek-reasoner", 5000, "ROLE_PREMIUM_USER")
+    DEEPSEEK_CHAT("deepseek-chat", 192000, "ROLE_USER"),
+    DEEKSEEK_REASONER("deepseek-reasoner", 192000, "ROLE_PREMIUM_USER")
     ;
 
     private String model;
