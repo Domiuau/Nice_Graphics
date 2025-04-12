@@ -40,10 +40,22 @@
     justify-content: space-between;
 }
 
-.social-media i {
+.icones-acessibilidade {
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.icones-acessibilidade button {
+    background: none;
+    border: none;
+}
+
+.social-media i,
+.icones-acessibilidade button i {
     color: var(--font-2);
     font-size: 30px;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 .termos-e-politica-privacidade-links ul {
@@ -61,12 +73,11 @@
 }
 
 .termos-e-politica-privacidade-links ul li a:hover,
-.social-media i:hover {
+.social-media i:hover,
+.icones-acessibilidade button i:hover {
     color: var(--bg-4);
 }
 
 .rodape-links div div p {
     color: var(--font-2);
-
-
 }
