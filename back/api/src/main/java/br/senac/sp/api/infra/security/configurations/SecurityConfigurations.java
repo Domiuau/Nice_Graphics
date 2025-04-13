@@ -31,22 +31,26 @@ public class SecurityConfigurations {
                 .cors(cors -> cors.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt_4").hasRole("PREMIUM_USER")
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt_4_turbo").hasRole("PREMIUM_USER")
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt_4o").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt_4o_mini").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt_3_5").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt-4").hasRole("PREMIUM_USER")
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt-4-turbo").hasRole("PREMIUM_USER")
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt-4o").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt-4o-mini").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gpt-3.5").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gemini_2_0_flash").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gemini_1_5_pro").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/gemini_1_5_flash").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gemini-2.0-flash").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gemini-1.5-pro").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/gemini-1.5-flash").permitAll()
 
 
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/deepseek_chat").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/analyze/deepseek_reasoner").hasRole("PREMIUM_USER")
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/deepseek-chat").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/analyze/deepseek-reasoner").hasRole("PREMIUM_USER")
 
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/cadastrar").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/analyze/generations/previews").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/analyze/generations").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/analyze/generation/{id}").authenticated()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

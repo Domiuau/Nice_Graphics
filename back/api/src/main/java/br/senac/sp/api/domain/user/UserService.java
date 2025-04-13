@@ -1,18 +1,17 @@
 package br.senac.sp.api.domain.user;
 
-import br.senac.sp.api.domain.analysis.AnalisysRepository;
+import br.senac.sp.api.domain.analysis.*;
 
-import br.senac.sp.api.domain.analysis.Analysis;
-import br.senac.sp.api.domain.analysis.AnalysisDTO;
-import br.senac.sp.api.domain.analysis.AnalysisReturnDTO;
 import br.senac.sp.api.domain.context.ContextDTO;
 import br.senac.sp.api.domain.data.DataDTO;
 import br.senac.sp.api.domain.user.dto.LoggedUserDTO;
 import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
 import br.senac.sp.api.domain.user.dto.UserAnalyzesDTO;
+import br.senac.sp.api.infra.errors.exceptions.ActionNotAllowedException;
 import br.senac.sp.api.infra.errors.exceptions.CharacterLimitReachedException;
 import br.senac.sp.api.infra.errors.exceptions.InvalidLoginException;
+import br.senac.sp.api.infra.errors.exceptions.InvalidOrExpiredTokenExpection;
 import br.senac.sp.api.infra.security.services.TokenService;
 import br.senac.sp.api.services.apicalls.AvailableAI;
 import br.senac.sp.api.services.apicalls.AIModel;
@@ -77,10 +76,12 @@ public class UserService {
         if (token != null) {
             String username = tokenService.validateToken(token.replace("Bearer ", ""));
             User user = (User) userRepository.findByUsername(username);
-            if (user == null) return ResponseEntity.badRequest().body("Token inválido");
+            if (user != null) {
+                Analysis analysis = new Analysis(analysisDTO, user);
+                user.getAnalyses().add(analysis);
+            }
 
-            Analysis analysis = new Analysis(analysisDTO, user);
-            user.getAnalyses().add(analysis);
+
         }
 
         return ResponseEntity.ok(analysisDTO);
@@ -89,11 +90,30 @@ public class UserService {
     public ResponseEntity<?> getGenerations(String token) {
         String username = tokenService.validateToken(token.replace("Bearer ", ""));
         User user = (User) userRepository.findByUsername(username);
+        if (user == null) throw new InvalidOrExpiredTokenExpection("Não foi possível carregar as gerações pois o token é inválido ou expirou");
         return ResponseEntity.ok(new UserAnalyzesDTO(user.getAnalyses().stream().map(analysis ->
                 new AnalysisReturnDTO(analysis.getAnalyzedText(), analysis.getCostInTokens(), analysis.getModelWhoResponded(), analysis.getAnalyzedBy(),
                         analysis.getCreation_date(), analysis.getContexts().stream().map(context ->
                         new ContextDTO(context.getDescription(), context.getType(), context.getNumberRepresented(), context.getData().stream().map(data ->
                                 new DataDTO(data.getField(), data.getValue())).toList())).toList())).toList()));
+    }
+
+    public ResponseEntity<?> getGenerationsPreviews(String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+        if (user == null) throw new InvalidOrExpiredTokenExpection("Não foi possível carregar as gerações pois o token é inválido ou expirou");
+        return ResponseEntity.ok(new AnalysisPreviewsListDTO(user.getAnalyses().stream().map(analysis ->
+                new AnalysisPreviewDTO(analysis, analysis.getContexts().size())).toList()));
+    }
+
+    public ResponseEntity<?> getContextDetailsById(String id, String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+        if (user == null) throw new InvalidOrExpiredTokenExpection("Não foi possível carregar os detalhes pois o token é inválido ou expirou");
+        Analysis analysis = analisysRepository.findById(id).orElseThrow(() -> new ConstraintViolationException("Análise não encontrada", null));
+        if (!user.getId().equals(analysis.getUser().getId())) throw new ActionNotAllowedException("A análise especificada não pertence ao usuário logado");
+        return ResponseEntity.ok(new AnalysisReturnDTO(analysis));
+
     }
 
     public ResponseEntity<?> testSaveContext(String text, AvailableAI availableAI, AIModel model) throws Exception {

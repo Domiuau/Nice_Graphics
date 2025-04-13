@@ -71,12 +71,23 @@ public class UserController {
 
     @PostMapping("/analyze/deepseek-reasoner") @CrossOrigin
     ResponseEntity<?> analyzeTextWithDeepseek_reasoner(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(name = "Authorization") String token) throws Exception {
+        System.out.println("chegou controller");
         return userService.analyzeText(textForAnalyzeDTO.text(), DeepseekModel.DEEKSEEK_REASONER, token);
     }
 
     @GetMapping("/analyze/generations") @CrossOrigin
     public ResponseEntity<?> getGenerations(@RequestHeader(name = "Authorization") String token) {
         return userService.getGenerations(token);
+    }
+
+    @GetMapping("/analyze/generations/previews") @CrossOrigin
+    public ResponseEntity<?> getGenerationsPreviews(@RequestHeader(name = "Authorization") String token) {
+        return userService.getGenerationsPreviews(token);
+    }
+
+    @GetMapping("/analyze/generation/{id}") @CrossOrigin
+    public ResponseEntity<?> getGenerationsPreviews(@RequestHeader(name = "Authorization") String token, @PathVariable String id) {
+        return userService.getContextDetailsById(id, token);
     }
 
     @GetMapping("/models/details") @CrossOrigin

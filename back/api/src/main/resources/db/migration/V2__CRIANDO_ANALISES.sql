@@ -1,6 +1,6 @@
 create table analysis (
     id VARCHAR(36) PRIMARY KEY,
-    analyzed_text TEXT not null,
+    analyzed_text MEDIUMTEXT not null,
     model_who_responded VARCHAR(30) not null,
     cost_in_tokens INT not null,
     creation_date TIMESTAMP,

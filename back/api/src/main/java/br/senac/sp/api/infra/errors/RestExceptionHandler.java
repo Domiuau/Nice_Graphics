@@ -1,5 +1,6 @@
 package br.senac.sp.api.infra.errors;
 
+import br.senac.sp.api.infra.errors.exceptions.ActionNotAllowedException;
 import br.senac.sp.api.infra.errors.exceptions.CharacterLimitReachedException;
 import br.senac.sp.api.infra.errors.exceptions.InvalidLoginException;
 import br.senac.sp.api.infra.errors.exceptions.InvalidOrExpiredTokenExpection;
@@ -18,6 +19,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidOrExpiredTokenExpection.class)
     private ResponseEntity<?> handleInvalidOrExpiredTokenExpection(InvalidOrExpiredTokenExpection ex) {
         return ResponseEntity.status(401).body(new ErrorResponse(ex.getMessage(), "Faça login novamente para continuar"));
+    }
+
+    @ExceptionHandler(ActionNotAllowedException.class)
+    private ResponseEntity<?> handleActionNotAllowedException(ActionNotAllowedException ex) {
+        return ResponseEntity.status(403).body(new ErrorResponse(ex.getMessage(), "Ação não permitida"));
     }
 
     @ExceptionHandler(CharacterLimitReachedException.class)
