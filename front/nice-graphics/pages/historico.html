@@ -19,7 +19,7 @@
         <!-- ICONE NICE GRAPHICS -->
         <link rel="shortcut icon" href="../img/logo-icon.png" type="image/x-icon">
 
-    <title>Nice Graphics - Perfil Usuário</title>
+    <title>Nice Graphics - Histórico</title>
 </head>
 
 <body>
@@ -51,7 +51,7 @@
                 <li>
                     <div class="icone-usuario">
                         <p>Nome Usuário</p>
-                        <button class="btn-icone-usuario" title="Perfil Usuário"><i class='bx bx-user'></i></button>
+                        <button class="btn-icone-usuario" title="Ver opções perfil"><i class='bx bx-user'></i></button>
                     </div>
                 </li>
             </ul>
@@ -59,26 +59,39 @@
 
     </header>
 
-    <main class="container-perfil-usuario" id="container-perfil-usuario">
+    <main class="container-historico" id="container-historico">
 
-        <h1>Gerenciamento da Conta</h1>
-
-        <h2>Meus Dados</h2>
-
-        <form class="formulario" id="formulario" method="post">
-
-            <label for="input-nome-usuario">Nome usuário</label>
-            <input type="text" name="input-nome-usuario" id="input-nome-usuario" placeholder="Nome usuário">
-            <label for="input-email">E-mail</label>
-            <input type="email" name="input-email" id="input-email" placeholder="exemplo@email.com">
-            <label for="input-senha">Senha</label>
-            <input type="password" name="input-senha" id="input-senha" placeholder="********">
-            <label for="input-senha-confirmacao">Confirme a senha</label>
-            <input type="password" name="input-senha-confirmacao" id="input-senha-confirmacao" placeholder="********">            
+        <h1 class="titulo-container-historico">Meu Histórico</h1>
         
-            <button type="submit" class="btn-formulario">Alterar Dados</button>
+        <div class="container-historico-textos-analisados">
 
-        </form>
+            <div class="texto-analisado">
+                <p class="data-analise">13/04/2025</p>
+                <p class="resumo-analise">Resumo Análise Texto Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, nemo.</p>
+                <p class="qtd-graficos-container">
+                    <i class='bx bxs-pie-chart-alt-2'></i>
+                    <span class="qtd-graficos-gerados-analise">4</span>
+                </p>
+                <button class="btn-visualizar-analise">
+                    <span>Visualizar</span>
+                    <i class='bx bx-right-arrow-alt'></i>
+                </button>
+            </div>
+
+            <div class="texto-analisado">
+                <p class="data-analise">12/04/2025</p>
+                <p class="resumo-analise">Resumo Análise Texto Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe cupiditate quisquam quo obcaecati deleniti eos iure dolores nostrum, deserunt beatae?</p>
+                <p class="qtd-graficos-container">
+                    <i class='bx bxs-pie-chart-alt-2'></i>
+                    <span class="qtd-graficos-gerados-analise">2</span>
+                </p>
+                <button class="btn-visualizar-analise">
+                    <span>Visualizar</span>
+                    <i class='bx bx-right-arrow-alt'></i>
+                </button>
+            </div>
+            
+        </div>
 
     </main>
 
