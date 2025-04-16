@@ -92,10 +92,7 @@ public class UserService {
         User user = (User) userRepository.findByUsername(username);
         if (user == null) throw new InvalidOrExpiredTokenExpection("Não foi possível carregar as gerações pois o token é inválido ou expirou");
         return ResponseEntity.ok(new UserAnalyzesDTO(user.getAnalyses().stream().map(analysis ->
-                new AnalysisReturnDTO(analysis.getAnalyzedText(), analysis.getCostInTokens(), analysis.getModelWhoResponded(), analysis.getAnalyzedBy(),
-                        analysis.getCreation_date(), analysis.getContexts().stream().map(context ->
-                        new ContextDTO(context.getDescription(), context.getType(), context.getNumberRepresented(), context.getData().stream().map(data ->
-                                new DataDTO(data.getField(), data.getValue())).toList())).toList())).toList()));
+                new AnalysisReturnDTO(analysis)).toList()));
     }
 
     public ResponseEntity<?> getGenerationsPreviews(String token) {

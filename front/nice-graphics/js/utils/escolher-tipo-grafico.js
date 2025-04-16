@@ -4,6 +4,10 @@ const areaDoTexto = document.getElementById("txtarea-texto-usuario")
 const container = document.getElementById('container-graficos-gerados');
 const selectElement = document.getElementById('select-opcoes-ia');
 const resumoTexto = document.getElementById('resumo-texto');
+const botaoHistorico = document.getElementById("btn-historico")
+
+
+
 const coresPrincipaisSemOpacidade = [
     '#FF6384',
     '#FF9F40',
@@ -108,7 +112,7 @@ function getOpcoesGrafico(dados, cores, isDataLabelsActive) {
                     padding: 15,
                     boxWidth: 20,
                     boxHeight: 15,
-                    generateLabels: function(chart) {
+                    generateLabels: function (chart) {
                         const data = chart.data;
                         if (data.labels.length && data.datasets.length) {
                             return data.labels.map((label, i) => {
@@ -142,10 +146,10 @@ function getOpcoesGrafico(dados, cores, isDataLabelsActive) {
             }
         },
         scales: {
-            
+
             x: {
                 grid: {
-                    display: !(dados.tipo == "doughnut" || dados.tipo == "pie") 
+                    display: !(dados.tipo == "doughnut" || dados.tipo == "pie")
                 },
                 title: {
                     display: false,
@@ -166,7 +170,7 @@ function getOpcoesGrafico(dados, cores, isDataLabelsActive) {
             },
             y: {
                 grid: {
-                    display: !(dados.tipo == "doughnut" || dados.tipo == "pie")  
+                    display: !(dados.tipo == "doughnut" || dados.tipo == "pie")
                 },
                 title: {
                     display: true,
@@ -250,7 +254,7 @@ async function fetchDados(texto) {
 
         const data = await response.json();
         resumoTexto.innerText = data.textAnalysis.summary;
-        const dadosProntos = await prepararDados(data);
+        const dadosProntos = prepararDados(data.textAnalysis.contexts);
         return dadosProntos;
     } catch (error) {
         console.error("Erro ao buscar os dados:", error);
@@ -275,11 +279,13 @@ botaoGerar.addEventListener("click", async function () {
 
 })
 
-async function prepararDados(data) {
+function prepararDados(data) {
 
     let dadosProntos = []
 
-    const contextos = data.textAnalysis.contexts
+   // const contextos = data.textAnalysis.contexts
+    const contextos = data
+
     let dados = []
     let labels = []
 
@@ -540,25 +546,61 @@ async function fetchModels() {
 
 fetchModels()
 
-const botao = document.getElementById("btn-historico")
-botao.addEventListener('click', () => {
-    const token = localStorage.getItem('authToken');
-  
-    fetch('http://localhost:8080/user/analyze/generations', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      const jsonString = JSON.stringify(data, null, 2);
-      const blob = new Blob([jsonString], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      window.open(url, '_blank');
-    })
-    .catch(error => console.error('Erro:', error));
-  });
 
+botaoHistorico.addEventListener('click', () => {
+    window.location.href = `historico.html`;
+});
+
+
+
+
+
+
+
+
+fetchGeracoesPreviews()
+
+async function fetchGeracoesPreviews() {
+    console.log("asd")
+    const authToken = localStorage.getItem("authToken");
+    const params = new URLSearchParams(window.location.search);
+    const idAnalise = params.get('valor') || '';
+
+    if (idAnalise) {
+        fetch('http://localhost:8080/user/analyze/generation/' + idAnalise, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${authToken}`
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+
+                console.log(data)
+                let dadosProntos = prepararDados(data.contexts)
+                container.innerHTML = ''
+                console.log("dados prontos" + dadosProntos)
+                dadosProntos.forEach(dados => {
+                    adicionarGrafico(dados)
+                })
+
+                resumoTexto.innerText = data.summary;
+                areaDoTexto.innerText = data.analyzedText;
+                window.history.replaceState({}, document.title, window.location.pathname);
+
+
+
+            })
+    } else {
+        console.log("nao")
+    }
+
+
+}
 
