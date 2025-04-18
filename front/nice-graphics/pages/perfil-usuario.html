@@ -50,7 +50,8 @@
                 </li>
                 <li>
                     <div class="icone-usuario">
-                        <button class="btn-icone-visualizar-historico" title="Visualizar Histórico" onclick="window.location.href = './historico.html'"><i class='bx bx-history'></i></button>
+                        <button class="btn-icone-visualizar-historico" title="Visualizar Histórico"
+                            onclick="window.location.href = './historico.html'"><i class='bx bx-history'></i></button>
                         <button class="btn-icone-usuario" title="Opções Usuário"><i class='bx bx-user'></i></button>
                     </div>
                 </li>
@@ -59,28 +60,67 @@
 
     </header>
 
-    <main class="container-perfil-usuario" id="container-perfil-usuario">
+    <div class="container-gerenciamento-conta">
 
-        <h1>Gerenciamento da Conta</h1>
+        <main class="container-perfil-usuario" id="container-perfil-usuario">
 
-        <h2>Meus Dados</h2>
+            <h1>Gerenciamento da Conta</h1>
 
-        <form class="formulario" id="formulario" method="post">
+            <h2>Meus Dados</h2>
 
-            <label for="input-nome-usuario">Nome usuário</label>
-            <input type="text" name="input-nome-usuario" id="input-nome-usuario" placeholder="Nome usuário">
-            <label for="input-email">E-mail</label>
-            <input type="email" name="input-email" id="input-email" placeholder="exemplo@email.com">
-            <label for="input-senha">Senha</label>
-            <input type="password" name="input-senha" id="input-senha" placeholder="********">
-            <label for="input-senha-confirmacao">Confirme a senha</label>
-            <input type="password" name="input-senha-confirmacao" id="input-senha-confirmacao" placeholder="********">
+            <form class="formulario" id="formulario" method="post">
 
-            <button type="submit" class="btn-formulario">Alterar Dados</button>
+                <label for="input-nome-usuario">Nome usuário</label>
+                <input type="text" name="input-nome-usuario" id="input-nome-usuario" placeholder="Nome usuário">
+                <label for="input-email">E-mail</label>
+                <input type="email" name="input-email" id="input-email" placeholder="exemplo@email.com">
+                <label for="input-senha">Senha</label>
+                <input type="password" name="input-senha" id="input-senha" placeholder="********">
+                <label for="input-senha-confirmacao">Confirme a senha</label>
+                <input type="password" name="input-senha-confirmacao" id="input-senha-confirmacao"
+                    placeholder="********">
 
-        </form>
+                <button type="submit" class="btn-formulario">Alterar Dados</button>
 
-    </main>
+            </form>
+
+
+            <div class="opcoes-desativacao">
+                <h2>Desativação e Exclusão</h2>
+                <div class="desativacao-temporaria opcao-desativacao">
+                    <div>
+                        <p class="titulo-opcao-desativacao">Desativar conta</p>
+                        <p>Desativa temporariamente a sua conta</p>
+                    </div>
+                    <button class="btn-desativacao-temporaria">Desativar Conta</button>
+                </div>
+
+                <div class="desativacao-exclusao opcao-desativacao">
+                    <div>
+                        <p class="titulo-opcao-desativacao">Excluir meus dados e conta</p>
+                        <p>Exclue permanentemente os seus dados e a sua conta</p>
+                    </div>
+                    <button class="btn-exclusao-conta">Excluir Conta</button>
+                </div>
+            </div>
+
+        </main>
+
+        <aside class="container-plano-usuario">
+            <h2>Minhas Assinaturas</h2>
+            <p>Meu Plano Atual</p>
+
+            <div class="plano-atual">
+                <i class='bx bxs-check-square' ></i>
+                <p>Opção Plano 1</p>
+                <p>R$ 0,00 / mês</p>
+                <button class="btn-trocar-plano" onclick="window.location.href = './premium.html'">Trocar Plano</button>
+            </div>
+
+        </aside>
+    </div>
+
+
 
     <footer class="footer" id="footer">
 
