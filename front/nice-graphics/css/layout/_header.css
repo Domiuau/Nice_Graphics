@@ -92,11 +92,16 @@
 }
 
 .btn-icone-usuario,
+.btn-icone-visualizar-historico,
 .btn-icone-sair {
     font-size: 25px;
     cursor: pointer;
     border: none;
     background-color: var(--bg-0);
+}
+
+.btn-icone-visualizar-historico {
+    margin-right: 20px;
 }
 
 .btn-icone-sair {
@@ -113,6 +118,8 @@
     position: absolute;
     right: 40px;
     top: 75px;
+
+    padding: 10px;
 }
 
 .opcoes-visualizacao-cliente ul li {
@@ -126,7 +133,11 @@
     border-radius: 5px;
 }
 
-.opcoes-visualizacao-cliente ul li:hover {
+.nome-usuario {
+    margin: 10px 50px 10px 0;
+}
+
+.opcoes-visualizacao-cliente .opcao-usuario:hover {
     background-color: var(--bg-3);
     color: var(--font-2);
     cursor: pointer;

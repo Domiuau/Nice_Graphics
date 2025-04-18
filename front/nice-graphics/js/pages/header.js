@@ -5,7 +5,7 @@ function menuFlutuanteCliente() {
     let menuElement = null;
 
     iconeCliente.addEventListener('click', (event) => {
-        event.stopPropagation(); 
+        event.stopPropagation();
 
         if (menuAberto) {
             menuElement.remove();
@@ -15,15 +15,15 @@ function menuFlutuanteCliente() {
             menuElement.classList.add('opcoes-visualizacao-cliente');
             menuElement.innerHTML = `
                 <ul>
-                    <li title="Meu Perfil" onclick="window.location.href = './perfil-usuario.html'">
+                    <li class="nome-usuario">
+                        <i class='bx bx-user'></i>
+                        <p>Nome Usuário</p>
+                    </li>
+                    <li class="opcao-usuario" title="Meu Perfil" onclick="window.location.href = './perfil-usuario.html'">
                         <i class='bx bxs-user-detail'></i>
                         <p>Meu Perfil</p>
                     </li>
-                    <li title="Meu Histórico" onclick="window.location.href = './historico.html'">
-                        <i class='bx bx-history'></i>
-                        <p>Meu Histórico</p>
-                    </li>
-                    <li title="Sair" onclick="window.location.href = './login.html'">
+                    <li class="opcao-usuario" title="Sair" onclick="window.location.href = './login.html'">
                         <i class='bx bx-log-out'></i>
                         <p>Sair</p>
                     </li>
