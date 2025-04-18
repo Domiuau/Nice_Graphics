@@ -1,0 +1,15 @@
+.container-termos-de-uso,
+.container-politica-de-privacidade {
+    padding: 200px;
+}
+
+.container-termos-de-uso h1,
+.container-politica-de-privacidade h1 {
+    margin-bottom: 50px;
+}
+
+.container-termos-de-uso p,
+.container-politica-de-privacidade p {
+    text-align: justify;
+    font-size: var(--font-tam-normal);
+}
