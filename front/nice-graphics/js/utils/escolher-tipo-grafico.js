@@ -5,6 +5,7 @@ const container = document.getElementById('container-graficos-gerados');
 const selectElement = document.getElementById('select-opcoes-ia');
 const resumoTexto = document.getElementById('resumo-texto');
 const botaoHistorico = document.getElementById("btn-historico")
+const iconeCarregamentoContainer = document.getElementById('container-carregador');
 
 
 
@@ -253,6 +254,7 @@ async function fetchDados(texto) {
         }
 
         const data = await response.json();
+        iconeCarregamentoContainer.style.display = "none";
         resumoTexto.innerText = data.textAnalysis.summary;
         const dadosProntos = prepararDados(data.textAnalysis.contexts);
         return dadosProntos;
@@ -266,7 +268,7 @@ async function fetchDados(texto) {
 const botaoGerar = document.getElementById("btn-gerar")
 botaoGerar.addEventListener("click", async function () {
 
-
+    iconeCarregamentoContainer.style.display = "flex";
 
     const dadosProntos = await fetchDados(areaDoTexto.value)
 
@@ -283,7 +285,7 @@ function prepararDados(data) {
 
     let dadosProntos = []
 
-   // const contextos = data.textAnalysis.contexts
+    // const contextos = data.textAnalysis.contexts
     const contextos = data
 
     let dados = []
@@ -368,7 +370,7 @@ function adicionarGrafico(dadosDoGrafico) {
       <span class="toggle-label">Números no gráfico</span>
     </div>
   
-
+    
 
   `;
 
@@ -381,11 +383,17 @@ function adicionarGrafico(dadosDoGrafico) {
         <input type="color" 
            id="seletorCores-${indexCor}" 
            value="${coresPrincipais[indexCor % coresPrincipais.length]}" 
-           class="seletor-cor">
-    `;
+           class="seletor-cor"
+           title="Seletor de cor">
+
+        `;
 
         indexCor++;
     });
+
+    divGrafico.innerHTML += `
+        <div class="separador"></div>
+    `;
 
     container.appendChild(divGrafico);
     const cfx = divGrafico.querySelector('canvas').getContext('2d');
