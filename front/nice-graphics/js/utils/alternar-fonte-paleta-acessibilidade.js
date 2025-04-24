@@ -1,3 +1,5 @@
+
+
 // ========== FONTE DISLEXIA ==========
 const btnAlternarFonteDislexia = document.getElementById('btn-acessibilidade-alternar-fonte');
 
@@ -88,6 +90,7 @@ const alternarPaleta = () => {
         aplicarPaleta({ ...paletaDaltonica, ...paletaGraficosDaltonica });
         localStorage.setItem("acessibilidadePaletaDaltonica", "true");
     }
+
 };
 
 if (btnAlternarPaletaDaltonismo) {

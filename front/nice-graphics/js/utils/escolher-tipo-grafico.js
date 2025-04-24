@@ -4,10 +4,15 @@ const areaDoTexto = document.getElementById("txtarea-texto-usuario")
 const container = document.getElementById('container-graficos-gerados');
 const selectElement = document.getElementById('select-opcoes-ia');
 const resumoTexto = document.getElementById('resumo-texto');
-const botaoHistorico = document.getElementById("btn-historico")
 const iconeCarregamentoContainer = document.getElementById('container-carregador');
+const botaoGerar = document.getElementById("btn-gerar")
+const botaoCorAcessivel = document.getElementById("btn-acessibilidade-alternar-paleta")
 
 
+
+
+
+let dadosProntosGeral
 
 const coresPrincipaisSemOpacidade = [
     '#FF6384',
@@ -17,18 +22,8 @@ const coresPrincipaisSemOpacidade = [
     '#36A2EB'
 ];
 
-const coresPrincipais = [
-    '#FF6384', '#FF9F40', '#FFCD56', '#4BC0C0', '#36A2EB',
-    '#9966FF', '#C9CBCF', '#8B0000', '#008080', '#00FF7F',
-    '#DC143C', '#7FFF00', '#FFD700', '#DA70D6', '#00CED1',
-    '#1E90FF', '#FF1493', '#00BFFF', '#FF4500', '#ADFF2F',
-    '#FA8072', '#20B2AA', '#9370DB', '#B0C4DE', '#66CDAA',
-    '#FF69B4', '#4682B4', '#7CFC00', '#BA55D3', '#5F9EA0',
-    '#FF6347', '#40E0D0', '#D2691E', '#9ACD32', '#6A5ACD',
-    '#87CEEB', '#FFB6C1', '#BDB76B', '#00FA9A', '#F08080',
-    '#CD5C5C', '#3CB371', '#8FBC8F', '#483D8B', '#DDA0DD',
-    '#778899', '#6B8E23', '#A0522D', '#48D1CC', '#FF00FF'
-];
+console.log(localStorage.getItem('acessibilidadePaletaDaltonica'))
+
 
 
 
@@ -75,7 +70,7 @@ const dadosGrafico = {
         label: 'Faturamento por Categoria',
         data: [50000, 30000, 40000, 35000, 25000],
         backgroundColor: coresPrincipaisSemOpacidade,
-        borderColor: coresPrincipais,
+        borderColor: getCoresDoGrafico(),
         borderWidth: 2
     }],
 };
@@ -265,21 +260,36 @@ async function fetchDados(texto) {
 }
 
 
-const botaoGerar = document.getElementById("btn-gerar")
 botaoGerar.addEventListener("click", async function () {
+
+    container.innerHTML = ''
+    container.innerHTML = `
+            <div id="container-carregador" class="container-carregador">
+        <i class='bx bx-loader-alt bx-spin icone-carregamento' ></i>
+        <p>Gerando gráficos...</p>
+        </div>
+        `
+    const iconeCarregamentoContainer = document.getElementById('container-carregador');
 
     iconeCarregamentoContainer.style.display = "flex";
 
-    const dadosProntos = await fetchDados(areaDoTexto.value)
 
-    container.innerHTML = ''
-    console.log("dados: " + dadosProntos)
-    dadosProntos.forEach(dados => {
-        adicionarGrafico(dados)
-    })
+    dadosProntosGeral = await fetchDados(areaDoTexto.value)
+
+    colocarGraficosNaTela()
 
 
 })
+
+function colocarGraficosNaTela() {
+
+    container.innerHTML = ''
+
+    dadosProntosGeral.forEach(dados => {
+        adicionarGrafico(dados)
+    })
+
+}
 
 function prepararDados(data) {
 
@@ -382,7 +392,7 @@ function adicionarGrafico(dadosDoGrafico) {
         divGrafico.innerHTML += `
         <input type="color" 
            id="seletorCores-${indexCor}" 
-           value="${coresPrincipais[indexCor % coresPrincipais.length]}" 
+           value="${getCoresDoGrafico()[indexCor % getCoresDoGrafico().length]}" 
            class="seletor-cor"
            title="Seletor de cor">
 
@@ -491,7 +501,7 @@ function adicionarGrafico(dadosDoGrafico) {
 
 
 
-    criarGraficoPelosDadosAPI(dadosDoGrafico, coresPrincipais, cfx, toggle.checked);
+    criarGraficoPelosDadosAPI(dadosDoGrafico, getCoresDoGrafico(), cfx, toggle.checked);
 }
 
 async function validateToken(token) {
@@ -508,8 +518,8 @@ async function validateToken(token) {
 
         //aqui estão os dados do usuário, se ele estiver logado
         const usuario = await response.json()
-        const paragrafo = document.getElementById("usuario-logado")
-        paragrafo.textContent = "username: " + usuario.username
+                //const paragrafo = document.getElementById("usuario-logado")
+       // paragrafo.textContent = "username: " + usuario.username
         console.log(usuario)
 
         return usuario;
@@ -555,11 +565,6 @@ async function fetchModels() {
 fetchModels()
 
 
-botaoHistorico.addEventListener('click', () => {
-    window.location.href = `historico.html`;
-});
-
-
 
 
 
@@ -600,7 +605,7 @@ async function fetchGeracoesPreviews() {
 
                 resumoTexto.innerText = data.summary;
                 areaDoTexto.innerText = data.analyzedText;
-                window.history.replaceState({}, document.title, window.location.pathname);
+            //window.history.replaceState({}, document.title, window.location.pathname);
 
 
 
@@ -610,5 +615,70 @@ async function fetchGeracoesPreviews() {
     }
 
 
+
 }
+
+function getCoresDoGrafico() {
+    return localStorage.getItem('acessibilidadePaletaDaltonica') === 'true' ?
+
+        [
+            '#E69F00',
+            '#56B4E9',
+            '#009E73',
+            '#F0E442',
+            '#0072B2',
+            '#D55E00',
+            '#CC79A7',
+            '#6F3198',
+            '#000000',
+            '#808080',
+            '#00CC66',
+            '#FF9933',
+            '#9933FF',
+            '#3366FF',
+            '#FF3366'
+        ]
+
+        :
+
+        [
+            '#FF6384', '#FF9F40', '#FFCD56', '#4BC0C0', '#36A2EB',
+            '#9966FF', '#C9CBCF', '#8B0000', '#008080', '#00FF7F',
+            '#DC143C', '#7FFF00', '#FFD700', '#DA70D6', '#00CED1',
+            '#1E90FF', '#FF1493', '#00BFFF', '#FF4500', '#ADFF2F',
+            '#FA8072', '#20B2AA', '#9370DB', '#B0C4DE', '#66CDAA',
+            '#FF69B4', '#4682B4', '#7CFC00', '#BA55D3', '#5F9EA0',
+            '#FF6347', '#40E0D0', '#D2691E', '#9ACD32', '#6A5ACD',
+            '#87CEEB', '#FFB6C1', '#BDB76B', '#00FA9A', '#F08080',
+            '#CD5C5C', '#3CB371', '#8FBC8F', '#483D8B', '#DDA0DD',
+            '#778899', '#6B8E23', '#A0522D', '#48D1CC', '#FF00FF'
+        ]
+
+}
+
+botaoCorAcessivel.addEventListener('click', () => {
+
+    if (dadosProntosGeral != null) {
+        colocarGraficosNaTela()
+
+    } else {
+        window.location.reload();
+    }
+
+
+    
+
+
+})
+
+const botaoHistorico = document.getElementById("btn-historico")
+
+botaoHistorico.addEventListener('click', () => {
+
+    window.location.href = "historico.html";
+
+
+})
+
+
 
