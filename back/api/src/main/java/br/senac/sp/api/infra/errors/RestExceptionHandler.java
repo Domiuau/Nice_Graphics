@@ -1,12 +1,8 @@
 package br.senac.sp.api.infra.errors;
 
-import br.senac.sp.api.infra.errors.exceptions.ActionNotAllowedException;
-import br.senac.sp.api.infra.errors.exceptions.CharacterLimitReachedException;
-import br.senac.sp.api.infra.errors.exceptions.InvalidLoginException;
-import br.senac.sp.api.infra.errors.exceptions.InvalidOrExpiredTokenExpection;
+import br.senac.sp.api.infra.errors.exceptions.*;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -16,8 +12,8 @@ import java.sql.SQLIntegrityConstraintViolationException;
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(InvalidOrExpiredTokenExpection.class)
-    private ResponseEntity<?> handleInvalidOrExpiredTokenExpection(InvalidOrExpiredTokenExpection ex) {
+    @ExceptionHandler(InvalidOrExpiredTokenException.class)
+    private ResponseEntity<?> handleInvalidOrExpiredTokenExpection(InvalidOrExpiredTokenException ex) {
         return ResponseEntity.status(401).body(new ErrorResponse(ex.getMessage(), "Faça login novamente para continuar"));
     }
 
@@ -50,6 +46,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         System.out.println(ex.getMessage());
         return ResponseEntity.badRequest().body(new ErrorResponse(erros[0], erros[1]));
     }
+
+    @ExceptionHandler(ResponseNotGeneratedException.class)
+    private ResponseEntity<?> handleResponseNotGeneratedException(ResponseNotGeneratedException ex) {
+        return ResponseEntity.status(400).body(new ErrorResponse(ex.getMessage(), "Se o problema persistir, tente trocar de modelo ou usar uma IA diferente."));
+    }
+
+    @ExceptionHandler(IACommunicationErrorException.class)
+    private ResponseEntity<?> handleIACommunicationErrorException(IACommunicationErrorException ex) {
+        return ResponseEntity.status(400).body(new ErrorResponse(ex.getMessage(), "Se o problema persistir, verifique sua conexão com a internet ou tente usar uma IA diferente."));
+    }
+
+
+
+
 
     private record ErrorResponse(String causa, String message) {
         private ErrorResponse(String causa, String message) {

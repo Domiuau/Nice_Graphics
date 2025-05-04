@@ -3,6 +3,7 @@ package br.senac.sp.api.controller;
 import br.senac.sp.api.domain.user.UserService;
 import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
 import br.senac.sp.api.domain.user.dto.LoginUserDTO;
+import br.senac.sp.api.domain.user.dto.UpdateUserDTO;
 import br.senac.sp.api.services.apicalls.AvailableAI;
 import br.senac.sp.api.services.apicalls.deepseek.DeepseekAPIService;
 import br.senac.sp.api.services.apicalls.deepseek.DeepseekModel;
@@ -34,6 +35,12 @@ public class AuthenticationController {
 
         return userService.login(login);
 
+    }
+
+    @PutMapping("/update") @CrossOrigin
+    public ResponseEntity<?> updateUser(@RequestBody UpdateUserDTO update, @RequestHeader(name = "Authorization") String token) {
+
+        return userService.updateUser(update, token);
     }
 
     @GetMapping("/{token}") @CrossOrigin

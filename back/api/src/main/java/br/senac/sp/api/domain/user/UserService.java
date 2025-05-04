@@ -2,16 +2,11 @@ package br.senac.sp.api.domain.user;
 
 import br.senac.sp.api.domain.analysis.*;
 
-import br.senac.sp.api.domain.context.ContextDTO;
-import br.senac.sp.api.domain.data.DataDTO;
-import br.senac.sp.api.domain.user.dto.LoggedUserDTO;
-import br.senac.sp.api.domain.user.dto.RegisterUserDTO;
-import br.senac.sp.api.domain.user.dto.LoginUserDTO;
-import br.senac.sp.api.domain.user.dto.UserAnalyzesDTO;
+import br.senac.sp.api.domain.user.dto.*;
 import br.senac.sp.api.infra.errors.exceptions.ActionNotAllowedException;
 import br.senac.sp.api.infra.errors.exceptions.CharacterLimitReachedException;
 import br.senac.sp.api.infra.errors.exceptions.InvalidLoginException;
-import br.senac.sp.api.infra.errors.exceptions.InvalidOrExpiredTokenExpection;
+import br.senac.sp.api.infra.errors.exceptions.InvalidOrExpiredTokenException;
 import br.senac.sp.api.infra.security.services.TokenService;
 import br.senac.sp.api.services.apicalls.AvailableAI;
 import br.senac.sp.api.services.apicalls.AIModel;
@@ -67,6 +62,26 @@ public class UserService {
     }
 
     @Transactional
+    public ResponseEntity<?> updateUser(UpdateUserDTO update, String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+        if (user == null) throw new InvalidOrExpiredTokenException("Não foi possível carregar o usuário pois o token é inválido ou expirou");
+
+        user.setUsername(update.name());
+        user.setEmail(update.email());
+
+        if(!update.password().isEmpty()) {
+            String encryptedPassword = new BCryptPasswordEncoder().encode(update.password());
+            user.setPassword(encryptedPassword);
+        }
+
+        var newToken = tokenService.generateToken(user);
+
+        return ResponseEntity.ok(new LoggedUserDTO(user, newToken));
+
+    }
+
+    @Transactional
     public ResponseEntity<?> analyzeText(String text, AIModel model, String token) throws Exception {
 
         if (model.getCharactersLimit() < text.length()) throw new CharacterLimitReachedException("Tamanho do texto: " + text.length() + " - Limite do modelo " + model.getModelName() + ": " + model.getCharactersLimit());
@@ -90,7 +105,7 @@ public class UserService {
     public ResponseEntity<?> getGenerations(String token) {
         String username = tokenService.validateToken(token.replace("Bearer ", ""));
         User user = (User) userRepository.findByUsername(username);
-        if (user == null) throw new InvalidOrExpiredTokenExpection("Não foi possível carregar as gerações pois o token é inválido ou expirou");
+        if (user == null) throw new InvalidOrExpiredTokenException("Não foi possível carregar as gerações pois o token é inválido ou expirou");
         return ResponseEntity.ok(new UserAnalyzesDTO(user.getAnalyses().stream().map(analysis ->
                 new AnalysisReturnDTO(analysis)).toList()));
     }
@@ -98,7 +113,7 @@ public class UserService {
     public ResponseEntity<?> getGenerationsPreviews(String token) {
         String username = tokenService.validateToken(token.replace("Bearer ", ""));
         User user = (User) userRepository.findByUsername(username);
-        if (user == null) throw new InvalidOrExpiredTokenExpection("Não foi possível carregar as gerações pois o token é inválido ou expirou");
+        if (user == null) throw new InvalidOrExpiredTokenException("Não foi possível carregar as gerações pois o token é inválido ou expirou");
         return ResponseEntity.ok(new AnalysisPreviewsListDTO(user.getAnalyses().stream().map(analysis ->
                 new AnalysisPreviewDTO(analysis, analysis.getContexts().size())).toList()));
     }
@@ -106,7 +121,7 @@ public class UserService {
     public ResponseEntity<?> getContextDetailsById(String id, String token) {
         String username = tokenService.validateToken(token.replace("Bearer ", ""));
         User user = (User) userRepository.findByUsername(username);
-        if (user == null) throw new InvalidOrExpiredTokenExpection("Não foi possível carregar os detalhes pois o token é inválido ou expirou");
+        if (user == null) throw new InvalidOrExpiredTokenException("Não foi possível carregar os detalhes pois o token é inválido ou expirou");
         Analysis analysis = analisysRepository.findById(id).orElseThrow(() -> new ConstraintViolationException("Análise não encontrada", null));
         if (!user.getId().equals(analysis.getUser().getId())) throw new ActionNotAllowedException("A análise especificada não pertence ao usuário logado");
         return ResponseEntity.ok(new AnalysisReturnDTO(analysis));

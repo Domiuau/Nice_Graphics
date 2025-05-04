@@ -2,6 +2,8 @@ package br.senac.sp.api.services.apicalls.deepseek;
 
 import br.senac.sp.api.domain.analysis.AnalysisDTO;
 import br.senac.sp.api.domain.analysis.TextAnalysisDTO;
+import br.senac.sp.api.infra.errors.exceptions.IACommunicationErrorException;
+import br.senac.sp.api.infra.errors.exceptions.ResponseNotGeneratedException;
 import br.senac.sp.api.services.apicalls.AIModel;
 import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AssistantPrompt;
@@ -37,8 +39,7 @@ public class DeepseekAPIService extends APIConnector {
             TextAnalysisDTO textAnalysisDTO = objectMapper.readValue(principalMessage, TextAnalysisDTO.class);
             return new AnalysisDTO(text, totalTokens, modelResponse, this.nameAI, new Date(), textAnalysisDTO);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new ResponseNotGeneratedException("O modelo " + model.getModelName() + " de " + nameAI + " não foi capaz de analisar o texto.");
         }
 
     }
@@ -58,7 +59,7 @@ public class DeepseekAPIService extends APIConnector {
         if (response.statusCode() == 200) {
             return response.body();
         } else {
-            throw new IOException("Error calling OpenAI API: " + response.statusCode() + " " + response.body());
+            throw new IACommunicationErrorException("Erro de comunicação com " + nameAI);
         }
     }
 
@@ -67,7 +68,7 @@ public class DeepseekAPIService extends APIConnector {
         return "{\n" +
                 "  \"model\": " + model.getModel() + ",\n" +
                 "  \"messages\": [\n" +
-                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART.getPrompt() + "},\n" +
+                "    {\"role\": \"system\", \"content\":  "  + AssistantPrompt.BASIC_PROMPT_WITH_LARGE_EXAMPLE.getPrompt() + "},\n" +
                 "    {\"role\": \"user\", \"content\": " + objectMapper.writeValueAsString(text) + "}\n" +
                 "  ],\n" +
                 "  \"stream\": false,\n" +

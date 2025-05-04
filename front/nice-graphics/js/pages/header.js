@@ -1,16 +1,21 @@
 window.onload = function definirHeaderUsuario() {
 
     const opcoesUsuarioStatus = document.getElementById('opcoes-status-usuario');
-    let usuario = 1;
+    let userName = localStorage.getItem("userName");
 
     //FAZER O IF DO USUÁRIO ESTAR LOGADO OU NÃO
 
     //Se ESTIVER logado faça
-    if (usuario == 0) {
+    if (userName) {
 
         opcoesUsuarioStatus.innerHTML = ``;
         opcoesUsuarioStatus.innerHTML = `
             <div class="icone-usuario">
+                <div class="user-name"> 
+                    <p> Bem vindo(a), </p>
+                    <p>${userName}!</p>
+                </div>
+                
                 <button class="btn-icone-visualizar-historico" title="Visualizar Histórico" onclick="window.location.href = '../pages/historico.html'"><i class='bx bx-history'></i></button>
                 <button class="btn-icone-usuario" title="Ver opções perfil"><i class='bx bx-user'></i></button>
             </div>
@@ -32,6 +37,7 @@ window.onload = function definirHeaderUsuario() {
                 </ul>
             </div>
         `;
+
     }
 
 
@@ -42,6 +48,7 @@ window.onload = function definirHeaderUsuario() {
 function menuFlutuanteCliente() {
     const iconeCliente = document.querySelector('.bx-user');
     const header = document.querySelector('.header');
+    let userName = localStorage.getItem("userName");
     let menuAberto = false;
     let menuElement = null;
 
@@ -58,13 +65,13 @@ function menuFlutuanteCliente() {
                 <ul>
                     <li class="nome-usuario">
                         <i class='bx bx-user'></i>
-                        <p>Nome Usuário</p>
+                        <p>${userName}</p>
                     </li>
                     <li class="opcao-usuario" title="Meu Perfil" onclick="window.location.href = '../pages/perfil-usuario.html'">
                         <i class='bx bxs-user-detail'></i>
                         <p>Meu Perfil</p>
                     </li>
-                    <li class="opcao-usuario" title="Sair" onclick="window.location.href = '../pages/login.html'">
+                    <li class="opcao-usuario" id="menu-sair" title="Sair" onclick="window.location.href = '../index.html'">
                         <i class='bx bx-log-out'></i>
                         <p>Sair</p>
                     </li>
@@ -72,8 +79,18 @@ function menuFlutuanteCliente() {
             `;
             header.appendChild(menuElement);
             menuAberto = true;
+
+            document.getElementById("menu-sair").addEventListener('click', () => {
+
+                localStorage.clear()
+        
+            })
+
+
         }
     });
+
+
 
     // Fecha o menu ao clicar fora
     document.addEventListener('click', (event) => {

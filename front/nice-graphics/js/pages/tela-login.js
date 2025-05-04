@@ -51,6 +51,7 @@ function atualizarFormulario(tipo) {
                 .then(data => {
                     if (data.token) {
                         localStorage.setItem('authToken', data.token);
+                        localStorage.setItem('userName', data.username)
                         console.log('Token armazenado com sucesso:', localStorage.getItem('authToken'));
                         window.location.href = "gerar-grafico.html";
                     } else {
@@ -118,6 +119,7 @@ function atualizarFormulario(tipo) {
                 .then(data => {
                     if (data.token) {
                         localStorage.setItem('authToken', data.token);
+                        localStorage.setItem('userName', data.username)
                         console.log('Token armazenado com sucesso:', localStorage.getItem('authToken'));
                         window.location.href = "gerar-grafico.html";
 

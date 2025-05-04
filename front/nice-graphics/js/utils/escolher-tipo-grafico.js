@@ -226,38 +226,50 @@ document.querySelectorAll('.container-grafico-acoes').forEach(container => {
 async function fetchDados(texto) {
     try {
         const selectedValue = selectElement.value;
-        console.log(selectedValue);
-
         const authToken = localStorage.getItem("authToken");
 
-        const headers = {
-            "Content-Type": "application/json"
-        };
+        const headers = { "Content-Type": "application/json" };
+        if (authToken) headers["Authorization"] = `Bearer ${authToken}`;
 
-        if (authToken) {
-            headers["Authorization"] = `Bearer ${authToken}`;
-        }
-
-        const response = await fetch(`http://localhost:8080/user/analyze/${selectedValue}`, {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify({ text: texto })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Erro: ${response.status} - ${response.statusText}`);
-        }
+        const response = await fetch(
+            `http://localhost:8080/user/analyze/${selectedValue}`,
+            {
+                method: "POST",
+                headers,
+                body: JSON.stringify({ text: texto })
+            }
+        );
 
         const data = await response.json();
+
+        if (!response.ok) {
+
+            container.innerHTML = `
+            <div class="error-container">
+                <div class="error-message">
+                  <p><strong>Erro ao gerar gráficos:</strong></p>
+                  <p>${data.causa} — ${data.message}</p>
+                </div>
+            </div>
+            `;
+
+
+  
+
+            return null
+        }
+
         iconeCarregamentoContainer.style.display = "none";
         resumoTexto.innerText = data.textAnalysis.summary;
         const dadosProntos = prepararDados(data.textAnalysis.contexts);
         return dadosProntos;
+
     } catch (error) {
         console.error("Erro ao buscar os dados:", error);
         return null;
     }
 }
+
 
 
 botaoGerar.addEventListener("click", async function () {
@@ -276,7 +288,12 @@ botaoGerar.addEventListener("click", async function () {
 
     dadosProntosGeral = await fetchDados(areaDoTexto.value)
 
-    colocarGraficosNaTela()
+    if (dadosProntosGeral != null) {
+
+        colocarGraficosNaTela()
+
+    }
+
 
 
 })
@@ -518,8 +535,8 @@ async function validateToken(token) {
 
         //aqui estão os dados do usuário, se ele estiver logado
         const usuario = await response.json()
-                //const paragrafo = document.getElementById("usuario-logado")
-       // paragrafo.textContent = "username: " + usuario.username
+        //const paragrafo = document.getElementById("usuario-logado")
+        // paragrafo.textContent = "username: " + usuario.username
         console.log(usuario)
 
         return usuario;
@@ -605,7 +622,7 @@ async function fetchGeracoesPreviews() {
 
                 resumoTexto.innerText = data.summary;
                 areaDoTexto.innerText = data.analyzedText;
-            //window.history.replaceState({}, document.title, window.location.pathname);
+                //window.history.replaceState({}, document.title, window.location.pathname);
 
 
 
@@ -666,19 +683,12 @@ botaoCorAcessivel.addEventListener('click', () => {
     }
 
 
-    
 
-
-})
-
-const botaoHistorico = document.getElementById("btn-historico")
-
-botaoHistorico.addEventListener('click', () => {
-
-    window.location.href = "historico.html";
 
 
 })
+
+
 
 
 

@@ -2,6 +2,8 @@ package br.senac.sp.api.services.apicalls.gemini;
 
 import br.senac.sp.api.domain.analysis.AnalysisDTO;
 import br.senac.sp.api.domain.analysis.TextAnalysisDTO;
+import br.senac.sp.api.infra.errors.exceptions.IACommunicationErrorException;
+import br.senac.sp.api.infra.errors.exceptions.ResponseNotGeneratedException;
 import br.senac.sp.api.services.apicalls.APIConnector;
 import br.senac.sp.api.services.apicalls.AssistantPrompt;
 import br.senac.sp.api.services.apicalls.AIModel;
@@ -29,11 +31,12 @@ public class GeminiAPIService extends APIConnector {
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println(response.body());
 
         if (response.statusCode() == 200) {
             return response.body();
         } else {
-            throw new IOException("Error calling Gemini API: " + response.statusCode() + " " + response.body());
+            throw new IACommunicationErrorException("Erro de comunicação com " + nameAI);
         }
     }
 
@@ -55,8 +58,7 @@ public class GeminiAPIService extends APIConnector {
             TextAnalysisDTO textAnalysisDTO = objectMapper.readValue(principalMessage, TextAnalysisDTO.class);
             return new AnalysisDTO(text, totalTokens, modelResponse, this.nameAI, new Date(), textAnalysisDTO);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new ResponseNotGeneratedException("O modelo " + model.getModelName() + " de " + nameAI + " não foi capaz de analisar o texto.");
         }
 
     }
@@ -66,7 +68,7 @@ public class GeminiAPIService extends APIConnector {
         return "{\n" +
                 "  \"systemInstruction\": {\n" +
                 "    \"parts\": [\n" +
-                "      {\"text\": " + AssistantPrompt.BASIC_PROMPT_WITH_TYPE_CHART.getPrompt() + " }\n" +
+                "      {\"text\": " + AssistantPrompt.BASIC_PROMPT_WITH_LARGE_EXAMPLE.getPrompt() + " }\n" +
                 "    ]\n" +
                 "  },\n" +
                 "  \"contents\": [\n" +
@@ -76,7 +78,7 @@ public class GeminiAPIService extends APIConnector {
                 "  ],\n" +
                 "  \"generation_config\": {\n" +
                 "    \"temperature\": 0,\n" +
-                "    \"max_output_tokens\": 2000,\n" +
+                "    \"max_output_tokens\": 20000,\n" +
                 "    \"top_p\": 0,\n" +
                 "    \"top_k\": 0,\n" +
                 "    \"presence_penalty\": 0.0,\n" +

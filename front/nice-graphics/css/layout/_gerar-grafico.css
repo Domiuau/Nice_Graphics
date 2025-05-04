@@ -332,3 +332,21 @@ input:checked+.slider {
 input:checked+.slider:before {
     transform: translateX(24px);
 }
+
+.error-container {
+    margin-top: 140px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .error-message {
+    color: #b00020;
+    text-align: center;
+    padding: 1rem;
+    background: #ffe5e5;
+    border: 1px solid #ffcccc;
+    border-radius: 4px;
+  }
+  

@@ -71,7 +71,6 @@ public class UserController {
 
     @PostMapping("/analyze/deepseek-reasoner") @CrossOrigin
     ResponseEntity<?> analyzeTextWithDeepseek_reasoner(@RequestBody TextForAnalyzeDTO textForAnalyzeDTO, @RequestHeader(name = "Authorization") String token) throws Exception {
-        System.out.println("chegou controller");
         return userService.analyzeText(textForAnalyzeDTO.text(), DeepseekModel.DEEKSEEK_REASONER, token);
     }
 
