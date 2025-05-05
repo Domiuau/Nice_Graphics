@@ -38,14 +38,14 @@
 
 #opcoes-ia-img {
     width: 70%;
-    height: 200px;
+    height: 300px;
     object-fit: contain;
 }
 
 .container-visualizacao-resultado {
     /* background-color: brown; */
-    width: 90%;
-    padding: 100px;
+    width: 70%;
+    padding: 70px;
 }
 
 .container-visualizacao-resultado h2 {
