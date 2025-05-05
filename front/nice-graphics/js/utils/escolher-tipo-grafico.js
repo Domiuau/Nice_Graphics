@@ -8,12 +8,6 @@ const iconeCarregamentoContainer = document.getElementById('container-carregador
 const botaoGerar = document.getElementById("btn-gerar")
 const botaoCorAcessivel = document.getElementById("btn-acessibilidade-alternar-paleta")
 
-
-
-
-
-let dadosProntosGeral
-
 const coresPrincipaisSemOpacidade = [
     '#FF6384',
     '#FF9F40',
@@ -22,7 +16,34 @@ const coresPrincipaisSemOpacidade = [
     '#36A2EB'
 ];
 
-console.log(localStorage.getItem('acessibilidadePaletaDaltonica'))
+let jsonInicial = prepararDados([
+    {
+        "description": "Gráfico de exemplo",
+        "type": "bar",
+        "numberRepresented": "Número do exemplo",
+        "data": [
+            {
+                "field": "Exemplo 1",
+                "value": 600
+            },
+            {
+                "field": "Exemplo 2",
+                "value": 300
+            },
+            {
+                "field": "Exemplo 3",
+                "value": 1000
+            },
+            {
+                "field": "Exemplo 4",
+                "value": 700
+            }
+        ]
+    }
+])
+
+let dadosProntosGeral
+
 
 
 
@@ -205,7 +226,7 @@ document.querySelectorAll('.container-grafico-acoes').forEach(container => {
     const ctx = container.querySelector('canvas').getContext('2d');
 
     // Criar o gráfico inicial para o container
-    criarGraficoPeloTipoEscolhido('pie', ctx); // Gráfico inicial aqui, como 'bar'
+  //  criarGraficoPeloTipoEscolhido('pie', ctx); // Gráfico inicial aqui, como 'bar'
 
     // Adiciona eventos aos botões dentro de cada container
     container.querySelectorAll('.opcao-grafico').forEach(botao => {
@@ -218,7 +239,7 @@ document.querySelectorAll('.container-grafico-acoes').forEach(container => {
             else if (this.classList.contains('grafico-rosquinha')) tipoGrafico = 'doughnut';
             else if (this.classList.contains('grafico-radar')) tipoGrafico = 'radar';
 
-            criarGraficoPeloTipoEscolhido(tipoGrafico, ctx);
+          //  criarGraficoPeloTipoEscolhido(tipoGrafico, ctx);
         });
     });
 });
@@ -270,33 +291,35 @@ async function fetchDados(texto) {
     }
 }
 
+if (botaoGerar != null) {
+    botaoGerar.addEventListener("click", async function () {
+
+        container.innerHTML = ''
+        container.innerHTML = `
+                <div id="container-carregador" class="container-carregador">
+            <i class='bx bx-loader-alt bx-spin icone-carregamento' ></i>
+            <p>Gerando gráficos...</p>
+            </div>
+            `
+        const iconeCarregamentoContainer = document.getElementById('container-carregador');
+    
+        iconeCarregamentoContainer.style.display = "flex";
+    
+    
+        dadosProntosGeral = await fetchDados(areaDoTexto.value)
+    
+        if (dadosProntosGeral != null) {
+    
+            colocarGraficosNaTela()
+    
+        }
+    
+    
+    
+    })
+}
 
 
-botaoGerar.addEventListener("click", async function () {
-
-    container.innerHTML = ''
-    container.innerHTML = `
-            <div id="container-carregador" class="container-carregador">
-        <i class='bx bx-loader-alt bx-spin icone-carregamento' ></i>
-        <p>Gerando gráficos...</p>
-        </div>
-        `
-    const iconeCarregamentoContainer = document.getElementById('container-carregador');
-
-    iconeCarregamentoContainer.style.display = "flex";
-
-
-    dadosProntosGeral = await fetchDados(areaDoTexto.value)
-
-    if (dadosProntosGeral != null) {
-
-        colocarGraficosNaTela()
-
-    }
-
-
-
-})
 
 function colocarGraficosNaTela() {
 
@@ -344,7 +367,7 @@ function prepararDados(data) {
 
 }
 
-function adicionarGrafico(dadosDoGrafico) {
+export function adicionarGrafico(dadosDoGrafico) {
 
     const divGrafico = document.createElement('div');
     divGrafico.classList.add('container-grafico-acoes');
@@ -688,7 +711,5 @@ botaoCorAcessivel.addEventListener('click', () => {
 
 })
 
-
-
-
+adicionarGrafico(jsonInicial[0])
 

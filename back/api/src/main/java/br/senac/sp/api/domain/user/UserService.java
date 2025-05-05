@@ -3,6 +3,7 @@ package br.senac.sp.api.domain.user;
 import br.senac.sp.api.domain.analysis.*;
 
 import br.senac.sp.api.domain.user.dto.*;
+import br.senac.sp.api.infra.errors.ErrorResponse;
 import br.senac.sp.api.infra.errors.exceptions.ActionNotAllowedException;
 import br.senac.sp.api.infra.errors.exceptions.CharacterLimitReachedException;
 import br.senac.sp.api.infra.errors.exceptions.InvalidLoginException;
@@ -12,6 +13,7 @@ import br.senac.sp.api.services.apicalls.AvailableAI;
 import br.senac.sp.api.services.apicalls.AIModel;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +21,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 
 @Service
 public class UserService {
@@ -55,7 +59,10 @@ public class UserService {
             var auth = authenticationManager.authenticate(userNamePassword);
             var token = tokenService.generateToken((User) auth.getPrincipal());
 
-            return ResponseEntity.ok(new LoggedUserDTO((User) auth.getPrincipal(), token));
+            return ((User) auth.getPrincipal()).isEnabled() ?
+                    ResponseEntity.ok(new LoggedUserDTO((User) auth.getPrincipal(), token))
+                    :
+                    ResponseEntity.badRequest().body(new ErrorResponse("Sua conta está desativada", "Entre em contato com o suporte para reativar sua conta"));
         } catch (AuthenticationException e) {
             throw new InvalidLoginException("Login ou senha inválidos");
         }
@@ -145,5 +152,24 @@ public class UserService {
                 ResponseEntity.badRequest().body("Token inválido") :
                 ResponseEntity.ok(new LoggedUserDTO(user, token));
 
+    }
+
+    @Transactional
+    public ResponseEntity<?> disableUser(String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+        if (user == null) throw new InvalidOrExpiredTokenException("Não foi possível carregar o usuário pois o token é inválido ou expirou");
+        user.setEnabled(false);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @Transactional
+    public ResponseEntity<?> deleteUserData(String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+        if (user == null) throw new InvalidOrExpiredTokenException("Não foi possível carregar o usuário pois o token é inválido ou expirou");
+        user.getAnalyses().clear();
+        userRepository.save(user);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

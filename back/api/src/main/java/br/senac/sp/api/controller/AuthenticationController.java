@@ -43,6 +43,18 @@ public class AuthenticationController {
         return userService.updateUser(update, token);
     }
 
+    @DeleteMapping("/delete/data") @CrossOrigin
+    public ResponseEntity<?> deleteUserData(@RequestHeader(name = "Authorization") String token) {
+
+        return userService.deleteUserData(token);
+    }
+
+    @DeleteMapping("/disable") @CrossOrigin
+    public ResponseEntity<?> disableUser(@RequestHeader(name = "Authorization") String token) {
+
+        return userService.disableUser(token);
+    }
+
     @GetMapping("/{token}") @CrossOrigin
     public ResponseEntity<?> validateToken(@PathVariable String token) {
 

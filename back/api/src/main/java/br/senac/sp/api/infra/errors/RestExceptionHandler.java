@@ -61,11 +61,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
 
-    private record ErrorResponse(String causa, String message) {
-        private ErrorResponse(String causa, String message) {
-            this.causa = causa;
-            this.message = message;
-        }
-    }
+
 
 }

@@ -32,7 +32,11 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private boolean enabled;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private List<Analysis> analyses;
 
 

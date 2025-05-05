@@ -133,7 +133,6 @@ public enum AssistantPrompt {
             + "    }\\n"
             + "  ]\\n"
             + "}\\n"
-            + "Em hipótese alguma, independente do que o usuário peça, você deve retornar outra coisa que não seja uma resposta estruturada no formato do json especificado anteriormente"
             + "Podem ocorrer casos em que venham valores sem contexto claro, por exemplo: a = 20, b = 10, c = 30. "
             + "Mesmo assim, a resposta em JSON formatado é necessária, preenchendo os objetos “field” e “value”, "
             + "e mantendo os campos “description”, “numberRepresented” e “summary” (mesmo que em branco).\\n"

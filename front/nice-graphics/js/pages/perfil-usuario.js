@@ -59,6 +59,45 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Ocorreu um erro na comunicação com o servidor.');
       }
     });
+
+    const btnDesativar = document.querySelector('.btn-desativacao-temporaria');
+    const btnExcluir  = document.querySelector('.btn-exclusao-conta');
+  
+    async function sendRequest(url, method = 'POST') {
+      try {
+        const resp = await fetch(url, {
+          method,
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
+            'Accept': 'application/json'
+          }
+        });
+        if (resp.status === 204) {
+          alert('Operação realizada com sucesso!');
+        } else {
+          const texto = await resp.text();
+          throw new Error(`Status ${resp.status}: ${texto}`);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Ocorreu um erro ao processar sua solicitação.');
+      }
+    }
+  
+    btnDesativar.addEventListener('click', () => {
+      if (confirm('Tem certeza de que deseja desativar temporariamente sua conta?')) {
+        sendRequest('http://localhost:8080/auth/disable', 'POST');
+        localStorage.clear()
+        window.location.href = "/nice-graphics/index.html";
+      }
+    });
+  
+    btnExcluir.addEventListener('click', () => {
+      if (confirm('Esta ação apagará todos os seus dados permanentemente. Deseja continuar?')) {
+        sendRequest('http://localhost:8080/auth/delete/data', 'DELETE');
+      }
+    });
+
   });
 
   async function preencherFormularioComDados() {
@@ -71,10 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const dados = await response.json();
 
-        // Preenche os campos do formulário
         document.getElementById('input-nome-usuario').value = dados.username || '';
         document.getElementById('input-email').value = dados.email || '';
-        // senha não vem no JSON, então o campo permanece vazio
+        
     } catch (erro) {
         console.error('Erro ao preencher o formulário:', erro);
     }
