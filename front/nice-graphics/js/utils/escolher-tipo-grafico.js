@@ -8,6 +8,7 @@ const selectElement = document.getElementById('select-opcoes-ia');
 const resumoTexto = document.getElementById('resumo-texto');
 const iconeCarregamentoContainer = document.getElementById('container-carregador');
 const botaoGerar = document.getElementById("btn-gerar")
+const botaoLimpar = document.getElementById("btn-limpar")
 const botaoCorAcessivel = document.getElementById("btn-acessibilidade-alternar-paleta")
 
 const coresPrincipaisSemOpacidade = [
@@ -294,11 +295,11 @@ botaoCorAcessivel.addEventListener('click', () => {
     } else {
         window.location.reload();
     }
+})
 
+botaoLimpar.addEventListener('click', () => {
 
-
-
-
+    areaDoTexto.value = ""
 })
 
 adicionarGrafico(jsonInicial[0])

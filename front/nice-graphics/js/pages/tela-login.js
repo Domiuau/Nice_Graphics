@@ -44,6 +44,7 @@ function atualizarFormulario(tipo) {
             })
                 .then(response => {
                     if (!response.ok) {
+                        alert("Login ou senha inválidos. Verifique seu login e senha e tenta novamente")
                         throw new Error(`Erro HTTP! Status: ${response.status}`);
                     }
                     return response.json();
@@ -99,35 +100,40 @@ function atualizarFormulario(tipo) {
             console.log("Cadastro confirmado");
             console.log("Usuário:", usuario, "E-mail:", email, "Senha:", senha, "Confirmação:", senhaConfirmacao);
 
-            fetch('http://localhost:8080/auth/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    login: usuario,
-                    email: email,
-                    senha: senha
-                })
+        fetch('http://localhost:8080/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                login: usuario,
+                email: email,
+                senha: senha
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Erro HTTP! Status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    if (data.token) {
-                        localStorage.setItem('authToken', data.token);
-                        localStorage.setItem('userName', data.username)
-                        console.log('Token armazenado com sucesso:', localStorage.getItem('authToken'));
-                        window.location.href = "gerar-grafico.html";
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => {
+                        alert(err.message);
+                        throw new Error(err.message);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.token) {
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('userName', data.username);
+                    console.log('Token armazenado com sucesso:', localStorage.getItem('authToken'));
+                    window.location.href = "gerar-grafico.html";
+                } else {
+                    console.warn('Nenhum token encontrado na resposta.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
 
-                    } else {
-                        console.warn('Nenhum token encontrado na resposta.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
 
         });
 

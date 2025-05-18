@@ -172,4 +172,13 @@ public class UserService {
         userRepository.save(user);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @Transactional
+    public ResponseEntity<?> setPremiumUser(String token) {
+        String username = tokenService.validateToken(token.replace("Bearer ", ""));
+        User user = (User) userRepository.findByUsername(username);
+        if (user == null) throw new InvalidOrExpiredTokenException("Não foi possível carregar o usuário pois o token é inválido ou expirou");
+        user.setRole(UserRole.PREMIUM_USER);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }

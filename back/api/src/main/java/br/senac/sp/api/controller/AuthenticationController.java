@@ -69,5 +69,10 @@ public class AuthenticationController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping("/gifPremium/{token}") @CrossOrigin
+    public ResponseEntity<?> gifPremium(@PathVariable String token) {
+        return userService.setPremiumUser(token);
+    }
+
 
 }
