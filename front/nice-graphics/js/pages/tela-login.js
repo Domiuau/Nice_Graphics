@@ -83,7 +83,7 @@ function atualizarFormulario(tipo) {
         const divAceite = criarElemento('div', { class: 'container-ckb-aceite' });
         const checkbox = criarElemento('input', { type: 'checkbox', name: 'ckb-aceite-termos-politica', id: 'ckb-aceite-termos-politica', required: 'yes' });
         const label = criarElemento('label', { for: 'ckb-aceite-termos-politica' });
-        label.innerHTML = `Ao fazer a inscrição, aceito os <span><a href="#">Termos de Serviço</a></span> e concordo com a <span><a href="#">Política de Privacidade</a></span> da Nice Graphics.`;
+        label.innerHTML = `Ao fazer a inscrição, aceito os <span><a href="./termos-de-uso.html">Termos de Serviço</a></span> e concordo com a <span><a href="./politica-de-privacidade.html">Política de Privacidade</a></span> da Nice Graphics.`;
         divAceite.appendChild(checkbox);
         divAceite.appendChild(label);
         formulario.appendChild(divAceite);
