@@ -13,3 +13,19 @@
     text-align: justify;
     font-size: var(--font-tam-normal);
 }
+
+.texto-termos-de-uso ul li,
+.texto-politica-de-privacidade ul li {
+    margin-left: 50px;
+    list-style: disc;
+}
+
+.texto-termos-de-uso a,
+.texto-politica-de-privacidade a {
+    text-decoration: underline;
+}
+
+.texto-termos-de-uso h3,
+.texto-politica-de-privacidade h3 {
+    margin: 20px 0;
+}

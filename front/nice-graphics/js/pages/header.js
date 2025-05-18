@@ -12,8 +12,7 @@ window.onload = function definirHeaderUsuario() {
         opcoesUsuarioStatus.innerHTML = `
             <div class="icone-usuario">
                 <div class="user-name"> 
-                    <p> Bem vindo(a), </p>
-                    <p>${userName}!</p>
+                    <p> Bem vindo(a), ${userName}!</p>
                 </div>
                 
                 <button class="btn-icone-visualizar-historico" title="Visualizar Histórico" onclick="window.location.href = '../pages/historico.html'"><i class='bx bx-history'></i></button>
