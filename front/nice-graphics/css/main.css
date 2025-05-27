@@ -1,0 +1,22 @@
+@import "layout/_header.css";
+@import "layout/_main.css";
+@import "layout/_footer.css";
+@import "layout/_login.css";
+@import "layout/_gerar-grafico.css";
+@import "layout/_como-utilizar.css";
+@import "layout/_premium.css";
+@import "layout/_perfil-usuario.css";
+@import "layout/_historico.css";
+@import "layout/_termos-e-politica.css";
+@import "base/_variaveis.css";
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+
+    font-family: var(--font-family-padrao);
+}

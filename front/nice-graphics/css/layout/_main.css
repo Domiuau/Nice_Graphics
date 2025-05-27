@@ -1,0 +1,170 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* text-align: left; */
+    /* padding: 100px 350px; */
+    margin: 110px auto;
+
+}
+
+.mensagem-principal {
+    position: relative;
+    /* Define um ponto de referência para os elementos filhos */
+    width: 800px;
+    margin: 150px 0 0;
+    color: var(--font-3);
+}
+
+.desenho-1 {
+    position: absolute;
+    left: 110px;
+    /* Ajuste a posição horizontal para ficar perto do h1 */
+    top: -110px;
+    /* Ajuste para alinhar verticalmente com o título */
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.desenho-2 {
+    position: absolute;
+    left: 740px;
+    /* Ajuste a posição horizontal para ficar perto do h1 */
+    top: 80px;
+    /* Ajuste para alinhar verticalmente com o título */
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.desenho-3 {
+    position: absolute;
+    left: 700px;
+    /* Ajuste a posição horizontal para ficar perto do h1 */
+    top: 15px;
+    /* Ajuste para alinhar verticalmente com o título */
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+}
+
+.desenho-4 {
+    position: absolute;
+    left: -100px;
+    /* Ajuste a posição horizontal para ficar perto do h1 */
+    top: -40px;
+    /* Ajuste para alinhar verticalmente com o título */
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+
+.mensagem-secundaria {
+    position: relative;
+    margin: 130px 0 100px;
+    width: 500px;
+    color: var(--font-3);
+}
+
+.mensagem-principal h1 {
+    font-size: 55px;
+}
+
+.mensagem-principal p {
+    font-size: 22px;
+}
+
+.mensagem-principal h1 span,
+.mensagem-principal p span a {
+    color: var(--font-4);
+    text-decoration: none;
+}
+
+.mensagem-secundaria h2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mensagem-secundaria p {
+    margin-top: 15px;
+    font-size: 16px;
+    color: var(--font-4);
+    font-weight: 500;
+}
+
+.mensagem-secundaria p span a {
+    color: var(--font-4);
+}
+
+.secao-exemplos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 80%;
+}
+
+.secao-exemplos-titulo h2,
+.secao-cadastre-se h2 {
+    font-size: 40px;
+    margin-bottom: 30px;
+    color: var(--font-3);
+}
+
+.secao-exemplos-conteudo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.secao-exemplos-conteudo div {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    padding: 50px;
+    margin: 20px;
+    height: 500px;
+
+    border-radius: 20px;
+    box-shadow: 0 0 30px 0 rgba(59, 99, 168, 0.1);
+} 
+
+.texto-exemplo p {
+    line-height: 27px;
+    color: var(--font-3);
+}
+
+.sinal-igualdade {
+    font-size: 90px;
+    font-weight: 600;
+    color: var(--font-3);
+}
+
+#meuGrafico {
+    cursor: pointer;
+}
+
+.secao-cadastre-se {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    height: 60vh;
+    margin: 200px auto;
+}
+
+.btn-cadastre-se {
+    width: 200px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    color: var(--font-2);
+    font-size: 22px;
+    border: none;
+    margin: 30px auto;
+    background-color: var(--bg-2);
+    cursor: pointer;
+}

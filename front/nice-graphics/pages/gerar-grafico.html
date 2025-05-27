@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONTS - POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+
+    <!-- ICONE NICE GRAPHICS -->
+    <link rel="shortcut icon" href="../img/logo-icon.png" type="image/x-icon">
+
+    <title>Nice Graphics - Gerar Gráfico</title>
+</head>
+
+<body>
+
+    <header class="header" id="header">
+
+        <nav class="navbar-header">
+            <ul>
+                <li>
+                    <div>
+                        <ul class="navbar-header-lista">
+                            <li class="navbar-logotipo">
+                                <a href="../index.html">
+                                    <img src="../img/Logo Animada Preto.png" alt="Logotipo Nice Graphics">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="./gerar-grafico.html">Gerar gráficos</a>
+                            </li>
+                            <li>
+                                <a href="./como-utilizar.html">Como utilizar</a>
+                            </li>
+                            <li>
+                                <a href="./premium.html">Premium</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="opcoes-status-usuario">
+                    <!-- <div>
+                        <ul class="navbar-header-buttons">
+                            <li>
+                                <p id="usuario-logado">Nenhum usuário logado</p>
+                            </li>
+                            <li>
+                                <button class="btn-entrar" id="btn-historico">Historico</button>
+                            </li>
+                            <li>
+                                <button class="btn-entrar" onclick="window.location.href='./login.html'">Entrar</button>
+                            </li>
+                            <li>
+                                <button class="btn-cadastro"
+                                    onclick="window.location.href='./login.html'">Cadastre-se</button>
+                            </li>
+                        </ul>
+                    </div> -->
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main class="container-gerar-grafico" id="container-gerar-grafico">
+
+        <h1>Gere seu Gráfico!</h1>
+
+        <p id="resumo-texto"></p>
+
+        <div class="containeres-geracao-grafico">
+
+            <div class="container-texto" id="container-texto">
+
+                <h2>Insira o seu texto abaixo:</h2>
+
+                <div class="caixa-texto">
+                    <label for="txtarea-texto-usuario" class="lbl-textarea">Insira aqui o seu texto informativo:</label>
+                    <textarea name="txtarea-texto-usuario" id="txtarea-texto-usuario"></textarea>
+                </div>
+
+                <div class="opcoes-ia">
+                    <label for="select-opcoes-ia">Selecione a IA de sua preferência para examinar o seu texto:</label>
+                    <select name="select-opcoes-ia" id="select-opcoes-ia">
+
+                    </select>
+                </div>
+
+                <div class="btns-limpar-gerar">
+                    <button class="btn-limpar" id="btn-limpar">Limpar</button>
+                    <button class="btn-gerar" id="btn-gerar">Gerar Gráfico</button>
+                </div>
+            </div>
+
+            <div class="container-graficos-gerados" id="container-graficos-gerados">
+
+                <div id="container-carregador" class="container-carregador">
+                    <i class='bx bx-loader-alt bx-spin icone-carregamento' ></i>
+                    <p>Gerando gráficos...</p>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+
+    <footer class="footer" id="footer">
+
+        <div class="logo-footer">
+            <img src="../img/Logo Animada.png" alt="">
+        </div>
+
+        <div class="rodape-links">
+            <div class="social-media">
+                <a href="#" title="Instagram">
+                    <i class='bx bxl-instagram'></i>
+                </a>
+                <a href="#" title="Facebook">
+                    <i class='bx bxl-facebook-circle'></i>
+                </a>
+                <a href="#" title="Youtube">
+                    <i class='bx bxl-youtube'></i>
+                </a>
+            </div>
+
+            <div class="termos-e-politica-privacidade-links">
+                <ul>
+                    <li>
+                        <a href="./termos-de-uso.html">Termos de Uso</a>
+                    </li>
+                    <li>
+                        <a href="./politica-de-privacidade.html">Política de Privacidade</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div>
+                <p>Copyright © 2025 Nice Graphics</p>
+            </div>
+
+            <div class="icones-acessibilidade">
+                <button id="btn-acessibilidade-alternar-paleta">
+                    <i class='bx bx-palette' title="Alternar Paleta: Protanopia (Daltonismo)"></i>
+                </button>
+                <button id="btn-acessibilidade-alternar-fonte">
+                    <i class='bx bx-font-family' title="Alternar Fonte: Dislexia"></i>
+                </button>
+            </div>
+        </div>
+
+
+    </footer>
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+    <!-- JS SCRIPT -->
+    <script src="../js/script.js"></script>
+    <script src="../js/pages/header.js"></script>
+    <script type="module" src="../js/utils/escolher-tipo-grafico.js"></script>
+    <script src="../js/utils/alternar-fonte-paleta-acessibilidade.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+:root {
+
+    --bg-0: #FFFFFF;
+    --bg-1: #050835;
+    --bg-2: #3B63A8;
+    --bg-3: #3D94F5;
+    --bg-4: #F4BC33;
+    --bg-5: #FE728D;
+    --bg-6: #e7e7e7;
+
+    --cor-grafico-1: rgba(255, 99, 132, 1);
+    --cor-grafico-2: rgba(54, 162, 235, 1);
+    --cor-grafico-3: rgba(255, 206, 86, 1);
+    --cor-grafico-4: #4bc0c0;
+    --cor-grafico-5: #9969ff;
+
+    --sombra-grafico-1: 0 0 20px 0 rgba(255, 99, 132, 0.2);
+    --sombra-grafico-2: 0 0 20px 0 rgba(54, 162, 235, 0.2);
+    --sombra-grafico-3: 0 0 20px 0 rgba(255, 206, 86, 0.2);
+    --sombra-grafico-4: 0 0 20px 0 rgba(75, 192, 192, 0.2);
+    --sombra-grafico-5: 0 0 20px 0 rgba(153, 105, 255, 0.2);
+
+    --font-1: #2A2829;
+    --font-2: #FFFFFF;
+    --font-3: #050835;
+    --font-4: #3b63a8;
+
+    --font-tam-pequeno: 14px;
+    --font-tam-normal: 16px;
+    --font-tam-medio: 20px;
+    --font-tam-titulo: 25px;
+    --font-tam-grande: 40px;
+
+    --font-family-padrao: "Poppins", sans-serif;
+
+    --box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('../fonts/OpenDyslexic/OpenDyslexic-Regular.otf') format('opentype');
+}

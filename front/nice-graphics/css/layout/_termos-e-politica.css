@@ -1,0 +1,31 @@
+.container-termos-de-uso,
+.container-politica-de-privacidade {
+    padding: 200px;
+}
+
+.container-termos-de-uso h1,
+.container-politica-de-privacidade h1 {
+    margin-bottom: 50px;
+}
+
+.container-termos-de-uso p,
+.container-politica-de-privacidade p {
+    text-align: justify;
+    font-size: var(--font-tam-normal);
+}
+
+.texto-termos-de-uso ul li,
+.texto-politica-de-privacidade ul li {
+    margin-left: 50px;
+    list-style: disc;
+}
+
+.texto-termos-de-uso a,
+.texto-politica-de-privacidade a {
+    text-decoration: underline;
+}
+
+.texto-termos-de-uso h3,
+.texto-politica-de-privacidade h3 {
+    margin: 20px 0;
+}

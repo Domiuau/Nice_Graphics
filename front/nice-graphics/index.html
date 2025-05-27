@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- GOOGLE FONTS - POPPINS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- BOXICONS -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/main.css">
+
+    <!-- ICONE NICE GRAPHICS -->
+    <link rel="shortcut icon" href="./img/logo-icon.png" type="image/x-icon">
+
+    <title>Nice Graphics</title>
+</head>
+
+<body>
+
+    <header class="header" id="header">
+
+        <nav class="navbar-header">
+            <ul>
+                <li>
+                    <div>
+                        <ul class="navbar-header-lista">
+                            <li class="navbar-logotipo">
+                                <a href="./index.html">
+                                    <img src="./img/Logo Animada Preto.png" alt="Logotipo Nice Graphics">
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../pages/gerar-grafico.html">Gerar gráficos</a>
+                            </li>
+                            <li>
+                                <a href="./pages/como-utilizar.html">Como utilizar</a>
+                            </li>
+                            <li>
+                                <a href="./pages/premium.html">Premium</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="opcoes-status-usuario">
+
+                </li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main class="main" id="main">
+
+        <div class="mensagem-principal">
+            <img src="./img/Abstract.png" class="desenho-1" alt="desenho de figuras geométricas flutuantes">
+            <h1>Transforme seus textos informativos em <span>Gráficos</span></h1>
+            <p>teste com a versão <span><a href="./pages/gerar-grafico.html">grátis.</a></span></p>
+            <img src="./img/Increase.png" class="desenho-2" alt="">
+            <img src="./img/Wavy Line.png" class="desenho-3" alt="">
+        </div>
+
+        <div class="mensagem-secundaria">
+            <img src="./img/Squiggly Line.png" class="desenho-4" alt="">
+            <h2>Gráficos gerados por contexto* <span>e personalizados em apenas um clique</span></h2>
+            <p>*opção de filtro por contexto disponível no <span><a href="./pages/premium.html">plano premium</a></span>
+            </p>
+        </div>
+
+        <section class="secao-exemplos">
+
+            <div class="secao-exemplos-titulo">
+                <h2>Exemplos</h2>
+            </div>
+
+            <div class="secao-exemplos-conteudo">
+                <div class="texto-exemplo">
+                    <p>
+                        Faturamento por Categoria de Produtos
+                        O gráfico abaixo mostra o faturamento total em cinco categorias de produtos:
+
+                        Eletrônicos: R$ 50.000
+
+                        Vestuário: R$ 30.000
+
+                        Alimentos: R$ 40.000
+
+                        Móveis: R$ 35.000
+
+                        Cosméticos: R$ 25.000
+
+                        Os eletrônicos foram os campeões de vendas, seguidos por alimentos e móveis. Já vestuário e
+                        cosméticos tiveram faturamentos menores, mas ainda relevantes.
+                    </p>
+                </div>
+
+                <p class="sinal-igualdade">=</p>
+
+                <div class="grafico-exemplo">
+                    <canvas id="meuGrafico">
+
+                    </canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="secao-cadastre-se">
+
+            <h2>Comece a utilizar</h2>
+            <button class="btn-cadastre-se" onclick="window.location.href='./pages/login.html'">Cadastre-se</button>
+
+        </section>
+
+
+    </main>
+
+    <footer class="footer" id="footer">
+
+        <div class="logo-footer">
+            <img src="./img/Logo Animada.png" alt="">
+        </div>
+
+        <div class="rodape-links">
+            <div class="social-media">
+                <a href="#" title="Instagram">
+                    <i class='bx bxl-instagram'></i>
+                </a>
+                <a href="#" title="Facebook">
+                    <i class='bx bxl-facebook-circle'></i>
+                </a>
+                <a href="#" title="Youtube">
+                    <i class='bx bxl-youtube'></i>
+                </a>
+            </div>
+
+            <div class="termos-e-politica-privacidade-links">
+                <ul>
+                    <li>
+                        <a href="./pages/termos-de-uso.html">Termos de Uso</a>
+                    </li>
+                    <li>
+                        <a href="./pages/politica-de-privacidade.html">Política de Privacidade</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <p>Copyright © 2025 Nice Graphics</p>
+            </div>
+
+            <div class="icones-acessibilidade">
+                <button id="btn-acessibilidade-alternar-paleta">
+                    <i class='bx bx-palette' title="Alternar Paleta: Protanopia (Daltonismo)"></i>
+                </button>
+                <button id="btn-acessibilidade-alternar-fonte">
+                    <i class='bx bx-font-family' title="Alternar Fonte: Dislexia"></i>
+                </button>
+            </div>
+        </div>
+
+
+    </footer>
+
+    <!-- CHART.JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+    <!-- JS SCRIPT -->
+    <script src="./js/script.js"></script>
+    <script src="./js/pages/tela-principal.js"></script>
+    <script src="./js/pages/header.js"></script>
+    <script src="./js/utils/alternar-fonte-paleta-acessibilidade.js"></script>
+</body>
+
+</html>
