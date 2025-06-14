@@ -7,6 +7,22 @@
 Inclua um GIF ou imagem do sistema funcionando (front) ou o resultado de uso (API).
 
 
+## 🖼️ Capturas de Tela
+
+![image](https://github.com/user-attachments/assets/2682f471-3e4a-4efb-b63d-1dd4c05d8a3d)
+![image](https://github.com/user-attachments/assets/f75adcd4-5f3c-41a8-acc1-36ed7d920e19)
+![image](https://github.com/user-attachments/assets/a30bf49a-733f-4ad5-882a-dbcd9e876055)
+![image](https://github.com/user-attachments/assets/9b852397-5a3c-4f06-94ca-66240beeb216)
+<div>
+  <img src="https://github.com/user-attachments/assets/bc78bd28-4481-4f8c-b596-ffdd6e905af5" width=33% heigth=auto />
+  <img src="https://github.com/user-attachments/assets/d791be8e-caf7-4dd1-adca-00b0c5796d82" width=33% heigth=auto />
+  <img src="https://github.com/user-attachments/assets/17041f7a-83d0-40fd-9df9-035ccecd9235" width=33% heigth=auto />
+</div>
+
+![image](https://github.com/user-attachments/assets/088a8cfb-c78e-4a28-950b-60771f5dcb73)
+![image](https://github.com/user-attachments/assets/1d1a767d-ffc5-446f-9e89-1bec5d3b976f)
+![image](https://github.com/user-attachments/assets/b25185ad-891a-4489-bfaf-f64822ffffa8)
+
 
 ## 🚀 Tecnologias Usadas
 
@@ -42,10 +58,10 @@ Inclua um GIF ou imagem do sistema funcionando (front) ou o resultado de uso (AP
 - ✅ **Alteração das cores – Daltonismo:** Possibilita a troca da paleta de cores para facilitar a leitura;
 
 ## 🛠️ Principais Desafios Técnicos Resolvidos
-- Implementação de tal tal
-- Criação de tal tal
-- Exportação de tal tal
-- Tal tal
+- Integração com múltiplas APIs de IA;
+- Transformação de linguagem natural em dados estruturados;
+- Geração dinâmica de gráficos;
+- Otimização da UX para visualização de grandes volumes de texto.
 
 ## 👤 Autores
 - Eliana Lima
