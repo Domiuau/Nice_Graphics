@@ -1,1 +1,1 @@
-![Gerando graficos](https://github.com/Domiuau/Nice_Graphics/tree/master/Assets/gerandoGraficos.gif)
+![Gerando graficos](https://github.com/Domiuau/Nice_Graphics/blob/master/Assets/gerandoGraficos.gif)
