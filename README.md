@@ -4,15 +4,24 @@
 
 ## ✨ Demonstração
 
-Inclua um GIF ou imagem do sistema funcionando (front) ou o resultado de uso (API).
+- Gerando gráficos
 
+![Gerando graficos](https://github.com/Domiuau/Nice_Graphics/blob/main/Assets/gerandoGrafico2.gif)
+
+- Personalizando um gráfico
+
+![Editando graficos](https://github.com/Domiuau/Nice_Graphics/blob/main/Assets/editandoGrafico.gif)
+
+- Histórico de gerações
+
+![Historico de graficos](https://github.com/Domiuau/Nice_Graphics/blob/main/Assets/historico.gif)
+
+- Tela de como utilizar
+
+![Tutorial](https://github.com/Domiuau/Nice_Graphics/blob/main/Assets/tutorial.gif)
 
 ## 🖼️ Capturas de Tela
 
-![image](https://github.com/user-attachments/assets/2682f471-3e4a-4efb-b63d-1dd4c05d8a3d)
-![image](https://github.com/user-attachments/assets/f75adcd4-5f3c-41a8-acc1-36ed7d920e19)
-![image](https://github.com/user-attachments/assets/a30bf49a-733f-4ad5-882a-dbcd9e876055)
-![image](https://github.com/user-attachments/assets/9b852397-5a3c-4f06-94ca-66240beeb216)
 <div>
   <img src="https://github.com/user-attachments/assets/bc78bd28-4481-4f8c-b596-ffdd6e905af5" width=33% heigth=auto />
   <img src="https://github.com/user-attachments/assets/d791be8e-caf7-4dd1-adca-00b0c5796d82" width=33% heigth=auto />
@@ -27,7 +36,7 @@ Inclua um GIF ou imagem do sistema funcionando (front) ou o resultado de uso (AP
 ## 🚀 Tecnologias Usadas
 
 - **Linguagens:** Java, JavaScript, HTML, CSS, SQL;
-- **Frameworks e Bibliotecas Principais:** Spring Boot, Chart.JS;
+- **Frameworks e Bibliotecas Principais:** Spring Boot, Chart.JS, Jackson;
 - **Banco de Dados:** MySQL;
 - **Ferramentas Utilizadas:** Insomnia, MySQL Workbench, IntelliJ IDE, Visual Studio Code, Figma, Git Bash;
 - **APIs Utilizadas:**
@@ -62,12 +71,15 @@ Inclua um GIF ou imagem do sistema funcionando (front) ou o resultado de uso (AP
 - Transformação de linguagem natural em dados estruturados;
 - Geração dinâmica de gráficos;
 - Otimização da UX para visualização de grandes volumes de texto.
+- Armazenar os gráficos sem salvar imagens.
+- Disponibilidade de modelos diferentes para usuário; deslogado, logado e premium.
 
 ## 👤 Autores
-- Eliana Lima
-- Guilherme Santos
-- Igor Silva
-- Nathalia Nakamura
+
+- [Eliana Lima](https://github.com/eliana-eml)
+- [Guilherme Mateus Sousa Santos](https://github.com/Domiuau)
+- [Igor Felipe da Silva](https://github.com/igorfslv)
+- [Nathalia Narumi](https://github.com/nathalianarumi)
 
 ## 📄 Licença
 Este projeto está sob a licença XYZ. Veja o arquivo LICENSE para mais detalhes.
