@@ -1,2 +1,1 @@
-aaa
-![Gerando graficos](https://github.com/Domiuau/Nice_Graphics/tree/master/Assets/gerandoGraficos.mp4) 
+![Gerando graficos](https://github.com/Domiuau/Nice_Graphics/tree/master/Assets/gerandoGraficos.gif)
