@@ -72,14 +72,15 @@
 - Geração dinâmica de gráficos;
 - Otimização da UX para visualização de grandes volumes de texto.
 - Armazenar os gráficos sem salvar imagens.
-- Disponibilidade de modelos diferentes para usuário; deslogado, logado e premium.
+- Disponibilidade de modelos diferentes para usuário: deslogado, logado e premium.
 
 ## 👤 Autores
 
-- [Eliana Lima](https://github.com/eliana-eml)
+- [Eliana Moura de Lima](https://github.com/eliana-eml)
 - [Guilherme Mateus Sousa Santos](https://github.com/Domiuau)
 - [Igor Felipe da Silva](https://github.com/igorfslv)
-- [Nathalia Narumi](https://github.com/nathalianarumi)
+- [Nathalia Narumi Nakamura](https://github.com/nathalianarumi)
 
 ## 📄 Licença
-Este projeto está sob a licença XYZ. Veja o arquivo LICENSE para mais detalhes.
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](./LICENSE.txt) para detalhes.
